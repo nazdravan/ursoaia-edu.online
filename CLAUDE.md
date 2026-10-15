@@ -56,6 +56,8 @@ uv run pytest              # teste pentru geometrie, SVG, hook
 
 În pagină, pe un rând separat în secțiunea „Conectare”: `[[wokwi:<nume>]]` sau `[[wokwi:<nume>|<id-proiect-wokwi>]]` (adaugă butonul „Simulează în Wokwi”). `hooks/wokwi.py` îl transformă în figură; un nume inexistent pică build-ul. Pinii din `diagram.json` trebuie să coincidă cu tabelul „Conectare” al paginii. Traseele firelor urmează semantica Wokwi (vezi `specs/2026-10-15-wokwi-wiring-design.md`, „Traseele firelor”). Schemdraw (scheme electrice) doar cu aprobare explicită.
 
+Piesele pe care `@wokwi/elements` nu le are sunt desenate local în `src/ursoaia_edu_online/custom_parts.py`: `wokwi-74hc595` și `wokwi-relay-module` (aceleași nume de pini ca pe wokwi.com), plus tipurile `ursoaia-*` (L293D, ULN2003, 28BYJ-48, motor DC, senzor apă, termistor, LDR, senzor cu bilă, baterie 9V). Tot acolo, `augment()` completează piese native desenate incomplet (panglica keypad-ului). Când schimbi desenul unei piese, mărește `RENDER_VERSION` din `wiring.py`, ca toate schemele să fie regenerate.
+
 ## Architecture
 
 ### Content pipeline
