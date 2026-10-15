@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-16 -16 394.359 418.062" width="394.359" height="418.062" data-source-hash="1c577a011f05a3b4"><style>#p-uno text{ font-size: 2px; font-family: monospace; user-select: none; }
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-16 -16 394.359 418.062" width="394.359" height="418.062" data-source-hash="8b094bea095d2370"><style>#p-uno text{ font-size: 2px; font-family: monospace; user-select: none; }
 #p-uno circle[tabindex]:hover, #p-uno circle[tabindex]:focus{ stroke: white; outline: none; }#p-lcd .cursor-blink{ animation: auto ease 0s 1 normal none running cursor-blink; }
 @keyframes cursor-blink{ 
   0% { opacity: 0; }

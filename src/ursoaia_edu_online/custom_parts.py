@@ -196,7 +196,22 @@ def battery_9v(attrs: dict) -> dict:
     return _part(w, h, "".join(body), pins)
 
 
+def npn_to92(attrs: dict) -> dict:
+    """Tranzistor NPN în capsulă TO-92 (2N2222/BC547), fața plată spre privitor: E-B-C."""
+    w, h = 30.0, 48.0
+    xs = [w / 2 - PITCH, w / 2, w / 2 + PITCH]
+    body = ['<path d="M3 22 V11 Q3 2 15 2 Q27 2 27 11 V22 Z" fill="#262626"/>',
+            _text(15, 15, attrs.get("label", "2N2222"), 4.2, "#d4d4d4")]
+    pins = {}
+    for x, name in zip(xs, ["E", "B", "C"]):
+        body.append(f'<line x1="{x:g}" y1="22" x2="{x:g}" y2="{h:g}" stroke="#adb5bd" stroke-width="1.6"/>')
+        body.append(_text(x, 30, name, 4.5, "#495057"))
+        pins[name] = (x, h)
+    return _part(w, h, "".join(body), pins)
+
+
 CUSTOM_PARTS: dict[str, Callable[[dict], dict]] = {
+    "ursoaia-npn": npn_to92,
     "wokwi-74hc595": shift_register,
     "wokwi-relay-module": relay_module,
     "ursoaia-l293d": l293d,

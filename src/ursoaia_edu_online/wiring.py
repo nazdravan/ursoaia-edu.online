@@ -242,7 +242,7 @@ WOKWI_ELEMENTS_URL = (
 )
 _RENDER_JS = Path(__file__).with_name("wiring_render.js")
 # Se mărește când se schimbă ieșirea randării, ca toate schemele să fie regenerate.
-RENDER_VERSION = "3"
+RENDER_VERSION = "4"
 
 
 def _warn(msg: str) -> None:

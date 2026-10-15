@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-56 -362 382 698.002" width="382" height="698.002" data-source-hash="5d5d9177c9d53256"><style>#p-uno text{ font-size: 2px; font-family: monospace; user-select: none; }
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-56 -362 382 698.002" width="382" height="698.002" data-source-hash="2f786fc9d0784721"><style>#p-uno text{ font-size: 2px; font-family: monospace; user-select: none; }
 #p-uno circle[tabindex]:hover, #p-uno circle[tabindex]:focus{ stroke: white; outline: none; }#p-r0{ display: flex; }#p-led0{ display: inline-block; }
 #p-led0 .led-container{ display: flex; flex-direction: column; width: 40px; }
 #p-led0 .led-label{ font-size: 10px; text-align: center; color: gray; position: relative; line-height: 1; top: -8px; }#p-r1{ display: flex; }#p-led1{ display: inline-block; }
