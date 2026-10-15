@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-dht22", "id": "dht", "top": -10, "left": 170, "attrs": {}}
+  ],
+  "connections": [
+    ["esp:D4", "dht:SDA", "blue", ["h93.7", "h-0.5", "v-15.1"]],
+    ["esp:3V3", "dht:VCC", "red", ["h83.7", "v-53.6"]],
+    ["esp:GND.1", "dht:GND", "black", ["h38.7", "v-9", "h74", "v-35.1"]]
+  ],
+  "dependencies": {}
+}

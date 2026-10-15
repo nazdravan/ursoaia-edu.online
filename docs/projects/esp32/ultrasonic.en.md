@@ -60,6 +60,8 @@ Or equivalently: `duration / 58.3`.
 
 ### Voltage divider on Echo (classic HC-SR04)
 
+[[wokwi:esp32-ultrasonic]]
+
 ```board
    Echo (5 V) ──[ 1 kΩ ]──┬── GPIO 18 (3.3 V)
                            │

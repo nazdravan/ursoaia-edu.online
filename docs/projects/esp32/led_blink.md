@@ -98,8 +98,7 @@ while True:
 
 ### Schemă de conectare
 
-![Schema de conectare LED ESP32](../../assets/images/projects/esp32/esp32-micropython-led-wiring-diagram.jpg)
-
+[[wokwi:esp32-led-blink]]
 ### LED-uri în cascadă în acțiune
 
 ![LED Chaser ESP32 MicroPython](../../assets/images/projects/esp32/esp32-led-chaser-micropython-upycraft-ide.webp)

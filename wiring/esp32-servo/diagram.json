@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-servo", "id": "sv", "top": 80, "left": -260, "attrs": {}, "rotate": 180}
+  ],
+  "connections": [
+    ["esp:D13", "sv:PWM", "orange", ["h-45", "v-8.97", "h-49.92"]],
+    ["esp:VIN", "sv:V+", "red", ["h-55", "v-18.47", "h-39.92"]],
+    ["esp:GND.2", "sv:GND", "black", ["h-65", "v0.53", "h-29.92"]]
+  ],
+  "dependencies": {}
+}

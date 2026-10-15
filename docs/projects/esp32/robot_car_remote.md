@@ -31,6 +31,8 @@ Robotul ESP32-CAM creează un punct de acces Wi-Fi (`ESP32-CAM Robot`, fără pa
 
 ## Conectare
 
+[[wokwi:esp32-robot-car-remote]]
+
 ```board
 ESP32 DevKit V1
 ┌──────────────────────┐

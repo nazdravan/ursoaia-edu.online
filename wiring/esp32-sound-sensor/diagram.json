@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-big-sound-sensor", "id": "mic", "top": 30, "left": -230, "attrs": {}, "rotate": 180}
+  ],
+  "connections": [
+    ["mic:AOUT", "esp:D34", "green", ["h59.95", "v-16.34", "h35"]],
+    ["mic:DOUT", "esp:D35", "orange", ["h49.95", "v22.96", "h45"]],
+    ["mic:GND", "esp:GND.2", "black", ["h39.95", "v89.06", "h55"]],
+    ["mic:VCC", "esp:3V3", "red", ["h29.95", "v175.06", "h190", "v-66", "h-28.7", "v-0.5"]]
+  ],
+  "dependencies": {}
+}

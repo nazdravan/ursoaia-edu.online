@@ -38,6 +38,8 @@ Două detalii importante pe ESP32, diferite față de Arduino:
 | VRy | GPIO 35 | axa Y, ADC1 |
 | SW | GPIO 32 | buton, cu pull-up intern |
 
+[[wokwi:esp32-joystick]]
+
 ```board
     ESP32                Joystick
     3.3V ──────────── +5V / VCC

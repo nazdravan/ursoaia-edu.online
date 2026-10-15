@@ -171,8 +171,7 @@ GND (4)    →  GND
 
 ### Wiring Diagram
 
-![ESP32 wired to DHT22 sensor with Wi-Fi connection](../../assets/images/projects/esp32/016-esp32-micropython-wifi-ap-techtotinker-diagram.png)
-
+[[wokwi:esp32-temperature-web]]
 ---
 
 ## Reference

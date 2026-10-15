@@ -40,6 +40,8 @@ Modulul scoate **două semnale**:
 | AO | GPIO 34 | ieșire analogică, ADC1 |
 | DO | GPIO 35 | ieșire digitală, citită ca input |
 
+[[wokwi:esp32-sound-sensor]]
+
 ```board
     ESP32                Senzor sunet
     3.3V ──────────── VCC

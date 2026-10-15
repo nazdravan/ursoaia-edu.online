@@ -171,8 +171,7 @@ GND (4)    →  GND
 
 ### Schemă de conectare
 
-![Schema ESP32 cu DHT22 și conexiune Wi-Fi](../../assets/images/projects/esp32/016-esp32-micropython-wifi-ap-techtotinker-diagram.png)
-
+[[wokwi:esp32-temperature-web]]
 ---
 
 ## Referințe

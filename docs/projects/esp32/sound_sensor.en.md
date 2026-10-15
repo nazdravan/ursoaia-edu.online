@@ -40,6 +40,8 @@ The module exposes **two signals**:
 | AO | GPIO 34 | analog output, ADC1 |
 | DO | GPIO 35 | digital output, read as input |
 
+[[wokwi:esp32-sound-sensor]]
+
 ```board
     ESP32                Sound sensor
     3.3V ──────────── VCC

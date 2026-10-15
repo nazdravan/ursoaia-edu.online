@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-resistor", "id": "r0", "top": 85.35, "left": -110, "attrs": {"value": "220"}},
+    {"type": "wokwi-resistor", "id": "r1", "top": 95.35, "left": -110, "attrs": {"value": "220"}},
+    {"type": "wokwi-resistor", "id": "r2", "top": 105.35, "left": -110, "attrs": {"value": "220"}},
+    {"type": "wokwi-rgb-led", "id": "rgb", "top": 0, "left": -200, "attrs": {"common": "cathode"}}
+  ],
+  "connections": [
+    ["esp:D25", "r0:2", "red", ["h-35", "v-0.3", "h-21.2"]],
+    ["esp:D26", "r1:2", "green", ["h-45", "h-11.2"]],
+    ["esp:D27", "r2:2", "blue", ["h-55", "v0.2", "h-1.2"]],
+    ["r0:1", "rgb:R", "red", ["h-20", "v-31", "h-61.5", "v-16"]],
+    ["r1:1", "rgb:G", "green", ["h-30", "v-31", "h-33.6", "v-26"]],
+    ["r2:1", "rgb:B", "blue", ["h-40", "v-31", "h-14.3", "v-36"]],
+    ["rgb:COM", "esp:GND.2", "black", ["v95", "h187"]]
+  ],
+  "dependencies": {}
+}

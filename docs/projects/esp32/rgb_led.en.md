@@ -64,6 +64,8 @@ We use **GPIO 25, 26, 27** — free on any DevKit V1 and PWM-capable with no con
 | B (blue)    | GPIO 27 (through 220 Ω) |
 | Common cathode (−) | GND |
 
+[[wokwi:esp32-rgb-led]]
+
 ```board
     ESP32             RGB LED (common cathode)
    GPIO 25 ──[220Ω]──── R
