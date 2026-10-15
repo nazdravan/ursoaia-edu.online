@@ -51,6 +51,8 @@ Amestecând `(R, G, B)`:
 | G (verde)   | D5 (prin 220 Ω) |
 | B (albastru)| D3 (prin 220 Ω) |
 
+[[wokwi:rgb-led]]
+
 ```board
     Arduino            LED RGB (catod comun)
      D6 ──[220Ω]──── R

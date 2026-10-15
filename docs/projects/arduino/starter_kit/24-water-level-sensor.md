@@ -49,6 +49,8 @@ Arduino citește tensiunea pe pinul analog (A0) cu `analogRead()`:
 | `−` (GND) | GND |
 | S (signal) | A0 |
 
+[[wokwi:water-level-sensor]]
+
 ```board
     Arduino              Senzor apă
      5V   ──────────── +

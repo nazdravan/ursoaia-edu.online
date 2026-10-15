@@ -58,6 +58,8 @@ Acum, în starea inactivă, pinul va citi `HIGH`. Când apeși butonul, îl cone
 | Buton B (un picior) | D3 |
 | Buton B (celălalt picior) | GND |
 
+[[wokwi:digital-inputs]]
+
 ```board
      D9 ──[220Ω]──── Anod LED ── Catod ── GND
      D2 ─────────── Buton A ─── GND

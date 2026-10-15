@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-resistor", "id": "r1", "top": -56.1, "left": 133.42, "attrs": {"value": "220"}, "rotate": 90},
+    {"type": "wokwi-led", "id": "led1", "top": -150, "left": 138, "attrs": {"color": "red"}},
+    {"type": "wokwi-pushbutton", "id": "btn1", "top": -75, "left": 262, "attrs": {"color": "green"}},
+    {"type": "wokwi-pushbutton", "id": "btn2", "top": -150, "left": 262, "attrs": {"color": "blue"}}
+  ],
+  "connections": [
+    ["uno:9", "r1:2", "green", ["v-30.2"]],
+    ["r1:1", "led1:A", "green", ["v-28"]],
+    ["led1:C", "uno:GND.1", "black", ["v18", "h-37.5", "v99"]],
+    ["uno:2", "btn1:1.l", "green", ["v-19", "v-52", "h25.5"]],
+    ["uno:3", "btn2:1.l", "blue", ["v-146", "h35"]],
+    ["btn1:2.r", "uno:GND.3", "black", ["h16", "v258", "h-166", "v-23.5"]],
+    ["btn2:2.r", "uno:GND.2", "black", ["h31", "v343", "h-190.5", "v-33.5"]]
+  ],
+  "dependencies": {}
+}

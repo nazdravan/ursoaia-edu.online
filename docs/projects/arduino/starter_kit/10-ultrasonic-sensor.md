@@ -52,6 +52,8 @@ Sau, echivalent: `timp / 58`.
 | Trig | D10 |
 | Echo | D9 |
 
+[[wokwi:ultrasonic-sensor]]
+
 ```board
     Arduino              HC-SR04
      5V   ──────────  VCC

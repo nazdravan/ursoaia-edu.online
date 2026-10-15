@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-resistor", "id": "r1", "top": -56.1, "left": 150.42, "attrs": {"value": "220"}, "rotate": 90},
+    {"type": "wokwi-resistor", "id": "r2", "top": -56.1, "left": 175.42, "attrs": {"value": "220"}, "rotate": 90},
+    {"type": "wokwi-resistor", "id": "r3", "top": -56.1, "left": 200.42, "attrs": {"value": "220"}, "rotate": 90},
+    {"type": "wokwi-rgb-led", "id": "rgb", "top": -210, "left": 185, "attrs": {"common": "cathode"}}
+  ],
+  "connections": [
+    ["uno:6", "r1:2", "red", ["v-14", "h-18.5", "v-16.2"]],
+    ["uno:5", "r2:2", "green", ["v-14", "h-3", "v-16.2"]],
+    ["uno:3", "r3:2", "blue", ["v-14", "h3", "v-16.2"]],
+    ["r1:1", "rgb:R", "red", ["v-20", "h13.5", "v-66"]],
+    ["r2:1", "rgb:G", "green", ["v-30", "h6.4", "v-56"]],
+    ["r3:1", "rgb:B", "blue", ["v-40", "h-9.3", "v-46"]],
+    ["rgb:COM", "uno:GND.1", "black", ["v21", "h-87.5", "v144"]]
+  ],
+  "dependencies": {}
+}

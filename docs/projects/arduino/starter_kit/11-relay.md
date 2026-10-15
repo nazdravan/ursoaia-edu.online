@@ -53,6 +53,8 @@ Modulul are **2 grupuri de pini**:
 | GND | GND |
 | IN | D8 |
 
+[[wokwi:relay]]
+
 ```board
     Arduino          Modul Releu
      5V   ───────── VCC

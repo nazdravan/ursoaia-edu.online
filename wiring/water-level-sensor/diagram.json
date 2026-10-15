@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "ursoaia-water-level-sensor", "id": "ws", "top": 220, "left": 300, "attrs": {}}
+  ],
+  "connections": [
+    ["uno:A0", "ws:S", "green", ["v13.5", "h105.4", "v15"]],
+    ["uno:5V", "ws:VCC", "red", ["v20.5", "h163", "v8"]],
+    ["uno:GND.2", "ws:GND", "black", ["v7.5", "h163.1", "v21"]]
+  ],
+  "dependencies": {}
+}

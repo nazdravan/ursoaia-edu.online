@@ -45,6 +45,8 @@ Arduino are o funcție specială, **`tone(pin, frecvență, durată)`**, care ge
 | `+` (pin roșu) | D8 |
 | `−` (pin negru) | GND |
 
+[[wokwi:buzzer]]
+
 ```board
     Arduino
      D8  ────── Buzzer pasiv (+)

@@ -44,6 +44,8 @@ Receptorul IR are 3 picioare (privind de sus, cu bula la tine):
 | VCC (mijloc) | 5V |
 | GND | GND |
 
+[[wokwi:ir-receiver]]
+
 ```board
     Arduino                IR Receiver
      D11  ──────────────── S (semnal)

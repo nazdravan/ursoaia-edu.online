@@ -40,6 +40,8 @@ Când bila închide contactul → pinul citește `LOW`. Când circuitul este des
 | Un picior | D2 |
 | Alt picior | GND |
 
+[[wokwi:tilt-ball-switch]]
+
 ```board
     Arduino
      D2 ──── Senzor bilă ──── GND
