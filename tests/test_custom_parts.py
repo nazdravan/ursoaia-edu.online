@@ -52,3 +52,24 @@ def test_custom_parts_compose_with_wires():
     out = compose_svg(diagram, rendered)
     ET.fromstring(out)
     assert 'stroke="red"' in out
+
+
+def test_keypad_gets_its_ribbon_cable_drawn():
+    # @wokwi/elements 1.9.1 pune pinii keypad-ului la y=338, dar desenează doar 287 px
+    from ursoaia_edu_online.custom_parts import augment
+    native = {"width": 266.0, "height": 287.0, "css": "",
+              "svg": '<svg width="70.336mm" height="76mm" viewBox="0 0 70.336 76"><rect width="70" height="76"/></svg>',
+              "pins": {"R1": [100.3, 338.0], "C4": [167.6, 338.0]}}
+    out = augment("wokwi-membrane-keypad", native)
+    assert out["height"] >= 338
+    assert out["pins"] == native["pins"]
+    root = ET.fromstring(out["svg"])
+    assert root.get("viewBox") == f"0 0 266 {out['height']:g}"
+    assert 'data-part="ribbon"' in out["svg"]
+    assert '<rect width="70" height="76"/>' in out["svg"]  # doar <svg>-ul rădăcină e redimensionat
+
+
+def test_augment_leaves_other_parts_alone():
+    from ursoaia_edu_online.custom_parts import augment
+    info = {"width": 1.0, "height": 1.0, "svg": "<svg/>", "css": "", "pins": {}}
+    assert augment("wokwi-led", info) is info

@@ -9,6 +9,7 @@ Fiecare piesă întoarce același format ca `wiring_render.js`:
 """
 from __future__ import annotations
 
+import re
 from typing import Callable
 
 PITCH = 9.6  # 0.1" la scara Wokwi
@@ -41,16 +42,16 @@ def _dip(title: str, top: list[str], bottom: list[str]) -> dict:
     xs = [margin + PITCH / 2 + i * PITCH for i in range(n)]
     parts = [f'<rect x="0" y="{leg:g}" width="{w:g}" height="{body_h:g}" rx="2" fill="#262626"/>',
              f'<path d="M0 {h / 2 - 5:g} a5 5 0 0 1 0 10z" fill="#111111"/>',
-             f'<circle cx="{margin + 3:g}" cy="{h - leg - 5:g}" r="1.6" fill="#555555"/>',
+             f'<circle cx="{margin - 2:g}" cy="{h - leg - 9:g}" r="1.6" fill="#555555"/>',
              _text(w / 2, h / 2 + 2.5, title, 7, "#d4d4d4")]
     pins: dict[str, tuple[float, float]] = {}
     for x, name in zip(xs, top):
         parts.append(f'<rect x="{x - 1.5:g}" y="0" width="3" height="{leg + 1:g}" fill="#b5b5b5"/>')
-        parts.append(_text(x, leg + 6, _label(name), 3.4, "#e5e5e5"))
+        parts.append(_text(x, leg + 6, _label(name), 3.4 if len(_label(name)) <= 3 else 2.7, "#e5e5e5"))
         pins[name] = (x, 0)
     for x, name in zip(xs, bottom):
         parts.append(f'<rect x="{x - 1.5:g}" y="{h - leg - 1:g}" width="3" height="{leg + 1:g}" fill="#b5b5b5"/>')
-        parts.append(_text(x, h - leg - 2.5, _label(name), 3.4, "#e5e5e5"))
+        parts.append(_text(x, h - leg - 2.5, _label(name), 3.4 if len(_label(name)) <= 3 else 2.7, "#e5e5e5"))
         pins[name] = (x, h)
     return _part(w, h, "".join(parts), pins)
 
@@ -212,3 +213,33 @@ CUSTOM_PARTS: dict[str, Callable[[dict], dict]] = {
 
 def render_custom(part_type: str, attrs: dict) -> dict:
     return CUSTOM_PARTS[part_type](attrs)
+
+
+def _keypad_ribbon(info: dict) -> dict:
+    """Panglica și conectorul keypad-ului, pe care @wokwi/elements 1.9.1 nu le desenează."""
+    w, h_old = info["width"], info["height"]
+    xs = sorted(x for x, _ in info["pins"].values())
+    h = max(y for _, y in info["pins"].values())
+    m = re.search(r"<svg\b([^>]*)>", info["svg"])
+    attrs = re.sub(r'\s(?:x|y|width|height)="[^"]*"', "", m.group(1))
+    inner = (f'<svg x="0" y="0" width="{w:g}" height="{h_old:g}"{attrs}>'
+             + info["svg"][m.end():])
+    x0, x1 = xs[0] - 6, xs[-1] + 6
+    ribbon = [f'<g data-part="ribbon"><path d="M{x0 + 4:g} {h_old - 6:g} H{x1 - 4:g} L{x1:g} {h - 16:g} H{x0:g} Z" fill="#d9dde1" stroke="#b8bec6"/>']
+    for x in xs:
+        ribbon.append(f'<line x1="{x:g}" y1="{h_old - 4:g}" x2="{x:g}" y2="{h - 16:g}" stroke="#b8bec6" stroke-width="0.8"/>')
+    ribbon.append(f'<rect x="{x0:g}" y="{h - 16:g}" width="{x1 - x0:g}" height="10" rx="1" fill="#222222"/>')
+    for x in xs:
+        ribbon.append(f'<rect x="{x - 1:g}" y="{h - 6:g}" width="2" height="6" fill="#c9a227"/>')
+    ribbon.append("</g>")
+    svg = _svg(w, h, inner + "".join(ribbon))
+    return {**info, "height": h, "svg": svg}
+
+
+_AUGMENT: dict[str, Callable[[dict], dict]] = {"wokwi-membrane-keypad": _keypad_ribbon}
+
+
+def augment(part_type: str, info: dict) -> dict:
+    """Completează piese native desenate incomplet de @wokwi/elements."""
+    fn = _AUGMENT.get(part_type)
+    return fn(info) if fn else info

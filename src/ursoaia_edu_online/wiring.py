@@ -14,7 +14,7 @@ import sys
 import urllib.request
 from pathlib import Path
 
-from ursoaia_edu_online.custom_parts import CUSTOM_PARTS, render_custom
+from ursoaia_edu_online.custom_parts import CUSTOM_PARTS, augment, render_custom
 
 Point = tuple[float, float]
 
@@ -242,7 +242,7 @@ WOKWI_ELEMENTS_URL = (
 )
 _RENDER_JS = Path(__file__).with_name("wiring_render.js")
 # Se mărește când se schimbă ieșirea randării, ca toate schemele să fie regenerate.
-RENDER_VERSION = "2"
+RENDER_VERSION = "3"
 
 
 def _warn(msg: str) -> None:
@@ -338,6 +338,8 @@ def render_all(wiring_dir: Path, out_dir: Path, bundle: Path) -> int:
                     diagram = json.loads(src.read_text("utf-8"))
                     native = [p for p in diagram["parts"] if p["type"] not in CUSTOM_PARTS]
                     rendered = {item["id"]: item for item in page.evaluate(render_js, native)}
+                    for p in native:
+                        rendered[p["id"]] = augment(p["type"], rendered[p["id"]])
                     for p in diagram["parts"]:
                         if p["type"] in CUSTOM_PARTS:
                             rendered[p["id"]] = render_custom(p["type"], p.get("attrs", {}))
