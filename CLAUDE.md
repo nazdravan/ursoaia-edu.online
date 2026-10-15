@@ -31,7 +31,7 @@ uv run build-css
 uv run build-images
 ```
 
-The `serve` and `build` shortcuts come from `[project.scripts]` in `pyproject.toml`, wired to `src/ursoaia_edu_online/__init__.py`. They run `build_css` (Tailwind standalone CLI → `custom_theme/assets/tailwind.css`) and `build_images` (Pillow → `.webp` siblings of every `*.jpg/*.png` under `docs/`) first, then forward argv to `mkdocs.__main__.cli`. Set `URSOAIA_SKIP_CSS=1` or `URSOAIA_SKIP_IMAGES=1` to skip steps individually.
+The `serve` and `build` shortcuts come from `[project.scripts]` in `pyproject.toml`, wired to `src/ursoaia_edu_online/__init__.py`. They run `build_css` (Tailwind standalone CLI → `custom_theme/assets/tailwind.css`) `build_images` (Pillow → `.webp` siblings of every `*.jpg/*.png` under `docs/`) and `build_diagrams` (Wokwi wiring diagrams → SVG, see below) first, then forward argv to `mkdocs.__main__.cli`. Set `URSOAIA_SKIP_CSS=1`, `URSOAIA_SKIP_IMAGES=1` or `URSOAIA_SKIP_DIAGRAMS=1` to skip steps individually.
 
 The `hooks/lazy_images.py` MkDocs hook then wraps each `<img>` whose src ends in jpg/jpeg/png in a `<picture>` element so browsers prefer the .webp variant. Combined effect: ~80% smaller image payload (15.4 MB → 3.2 MB on the current asset set).
 
@@ -43,6 +43,18 @@ The site's CSS is compiled by the Tailwind v3 standalone CLI (single binary, no 
 - `tailwind/input.css` — `@tailwind base/components/utilities` plus all custom CSS (animations, glass surfaces, prose overrides, Pygments tokens, admonitions). Edit this, not the rendered output.
 - `custom_theme/assets/tailwind.css` — minified output. **Committed** to the repo so the site builds without running the CLI.
 - `custom_theme/base.html` references it via `<link rel="stylesheet" href="{{ 'assets/tailwind.css'|url }}">`.
+
+### Scheme de conectare Wokwi (`wiring/`)
+
+Fiecare schemă de montaj e un folder `wiring/<nume>/` cu `diagram.json` (format Wokwi original, se poate lipi direct pe wokwi.com) și codul proiectului (`sketch.ino` / `main.py`). `uv run build` (sau `uv run build-diagrams`) randează piesele `@wokwi/elements@1.9.1` în Chromium headless și scrie `docs/assets/images/wiring/<nume>.svg`. SVG-urile sunt **commit-uite**: CI-ul nu are Chromium și sare pasul cu un avertisment.
+
+```bash
+uv sync --extra diagrams && uv run playwright install chromium   # o singură dată; pe macOS 13 se folosește Google Chrome instalat
+uv run build-diagrams      # regenerează doar schemele cu diagram.json mai nou
+uv run pytest              # teste pentru geometrie, SVG, hook
+```
+
+În pagină, pe un rând separat în secțiunea „Conectare”: `[[wokwi:<nume>]]` sau `[[wokwi:<nume>|<id-proiect-wokwi>]]` (adaugă butonul „Simulează în Wokwi”). `hooks/wokwi.py` îl transformă în figură; un nume inexistent pică build-ul. Pinii din `diagram.json` trebuie să coincidă cu tabelul „Conectare” al paginii. Traseele firelor urmează semantica Wokwi (vezi `specs/2026-10-15-wokwi-wiring-design.md`, „Traseele firelor”). Schemdraw (scheme electrice) doar cu aprobare explicită.
 
 ## Architecture
 

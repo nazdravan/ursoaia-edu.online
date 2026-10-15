@@ -64,11 +64,9 @@ A 10 kΩ pull-up resistor between DATA and VCC is recommended for reliable commu
 
 > **DHT11 vs DHT22:** The DHT11 has lower accuracy (±2°C, ±5% RH) and a narrower range. The DHT22 is more precise (±0.5°C, ±2–5% RH) and supports a wider temperature range.
 
-### Wiring Diagrams
+### Wiring diagram
 
-![ESP32 wired to a DHT11 temperature sensor](../../assets/images/projects/esp32/ESP32-interfacing-with-dht11.webp)
-
-![ESP32 wired to a DHT22 temperature and humidity sensor](../../assets/images/projects/esp32/esp32-micropython-dht22-temperature-humidity-sensor-wiring-diagram.jpg)
+[[wokwi:esp32-dht22]]
 
 ---
 

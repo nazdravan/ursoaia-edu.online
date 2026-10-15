@@ -243,7 +243,8 @@
 .dark .prose figure.wiring { border-color: rgba(255,255,255,0.08); }
 .prose figure.wiring img {
   display: inline-block;
-  max-width: 100%;
+  width: 100%;
+  max-width: 36rem;
   height: auto;
   margin: 0;
   border-radius: 0;

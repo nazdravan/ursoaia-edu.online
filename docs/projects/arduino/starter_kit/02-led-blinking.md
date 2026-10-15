@@ -41,6 +41,8 @@ Un **LED** (Light Emitting Diode) este o diodă care emite lumină atunci când 
 | Anodul (+) LED | pin D10 prin rezistență 220 Ω |
 | Catodul (−) LED | GND |
 
+[[wokwi:led-blinking]]
+
 ```board
    Arduino Uno                      Breadboard
    ┌─────────┐
