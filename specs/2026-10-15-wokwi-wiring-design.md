@@ -74,7 +74,7 @@ Câmpuri folosite de renderer: `parts[].type/id/top/left/rotate/attrs` și `conn
 
 Pasul rulează în `serve` și `build`, după `build_css` și `build_images`, și există și ca script separat, `uv run build-diagrams`.
 
-1. Pentru fiecare `wiring/<nume>/diagram.json`, compară timpul de modificare cu `docs/assets/images/wiring/<nume>.svg`. Sare peste schemele la zi.
+1. Pentru fiecare `wiring/<nume>/diagram.json`, compară amprenta conținutului (sha256 pe `diagram.json` + versiunea pieselor + `RENDER_VERSION`) cu atributul `data-source-hash` din `docs/assets/images/wiring/<nume>.svg`. Sare peste schemele la zi. Nu se folosește mtime-ul: după `git clone`, JSON-ul iese mereu mai nou decât SVG-ul.
 2. Dacă nu există nimic de regenerat, se oprește fără să pornească Chromium.
 3. Dacă Playwright lipsește, afișează un avertisment și sare pasul. La fel dacă e setat `URSOAIA_SKIP_DIAGRAMS=1`. Build-ul continuă cu SVG-urile commit-uite, deci CI-ul rămâne neschimbat.
 4. Altfel pornește Chromium headless o singură dată pentru toate schemele. Încarcă `wiring_render.html`, care include `tools/wokwi/wokwi-elements.bundle.js` printr-un `<script>` local. Pentru fiecare schemă:

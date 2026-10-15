@@ -20,6 +20,7 @@ from pathlib import Path
 from mkdocs.exceptions import PluginError
 
 _MARKER_RE = re.compile(r"^\[\[wokwi:([a-z0-9-]+)(?:\|(\d+))?\]\]\s*$")
+_LOOSE_MARKER_RE = re.compile(r"^\s*\[\[wokwi:")
 _FENCE_RE = re.compile(r"^\s*(`{3,}|~{3,})")
 _VIEWBOX_RE = re.compile(r'viewBox="\s*-?[\d.]+[\s,]+-?[\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)\s*"')
 _SVG_DIR = "assets/images/wiring"
@@ -62,6 +63,11 @@ def expand_markers(markdown: str, *, src_uri: str, locale: str, title: str | Non
             continue
         m = None if fence else _MARKER_RE.match(line)
         if not m:
+            if not fence and _LOOSE_MARKER_RE.match(line):
+                raise PluginError(
+                    f"{src_uri}: marker Wokwi invalid: {line.strip()!r}. Format: "
+                    "[[wokwi:<nume-kebab-case>]] sau [[wokwi:<nume>|<id-numeric>]], singur pe rând, neindentat."
+                )
             out.append(line)
             continue
         name, project_id = m.groups()

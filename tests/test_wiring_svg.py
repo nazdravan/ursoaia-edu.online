@@ -110,3 +110,17 @@ def test_compose_svg_rejects_color_injection():
 
 def test_svg_size_reads_viewbox():
     assert svg_size('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-16 -116 351.2 334.4">') == (351, 334)
+
+
+def test_compose_svg_drops_comments_for_deterministic_output():
+    # Lit lasă <!--?lit$<număr aleator>$--> în shadow DOM: fiecare randare ar da alt fișier
+    svg = '<svg viewBox="0 0 5 11"><!--?lit$123456$--><g/><!----></svg>'
+    d = _diagram(parts=[{"type": "wokwi-led", "id": "led1", "top": 0, "left": 0}], connections=[])
+    out = compose_svg(d, {"led1": fake(19, 42, {}, svg=svg)})
+    assert "<!--" not in out
+
+
+def test_compose_svg_embeds_source_hash():
+    d = _diagram(parts=[{"type": "wokwi-led", "id": "led1", "top": 0, "left": 0}], connections=[])
+    out = compose_svg(d, {"led1": fake(19, 42, {})}, source_hash="abc123")
+    assert out.startswith("<svg ") and 'data-source-hash="abc123"' in out[: out.index(">")]

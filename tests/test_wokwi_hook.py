@@ -63,3 +63,9 @@ def test_title_is_html_escaped(docs):
 def test_marker_must_be_alone_on_line(docs):
     md = "vezi [[wokwi:led-blinking]] aici"
     assert expand(md, docs) == md
+
+
+@pytest.mark.parametrize("bad", ["[[wokwi:Servo]]", "[[wokwi:led_blink]]", "    [[wokwi:led-blinking]]", "[[wokwi:led-blinking|abc]]"])
+def test_malformed_marker_fails_build(docs, bad):
+    with pytest.raises(PluginError, match="marker"):
+        expand(bad, docs)

@@ -50,7 +50,7 @@ Fiecare schemă de montaj e un folder `wiring/<nume>/` cu `diagram.json` (format
 
 ```bash
 uv sync --extra diagrams && uv run playwright install chromium   # o singură dată; pe macOS 13 se folosește Google Chrome instalat
-uv run build-diagrams      # regenerează doar schemele cu diagram.json mai nou
+uv run build-diagrams      # regenerează doar schemele al căror diagram.json s-a schimbat (amprentă în SVG)
 uv run pytest              # teste pentru geometrie, SVG, hook
 ```
 

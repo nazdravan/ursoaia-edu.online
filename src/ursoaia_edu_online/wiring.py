@@ -6,6 +6,7 @@ compunerea SVG-ului final se fac aici, în Python pur, ca să fie testabile.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import math
 import re
@@ -99,6 +100,8 @@ _SVG_OPEN_RE = re.compile(r"<svg\b([^>]*)>", re.DOTALL)
 _SIZE_ATTR_RE = re.compile(r'\s(?:x|y|width|height)="[^"]*"')
 _VIEWBOX_RE = re.compile(r'viewBox="\s*(-?[\d.]+)[\s,]+(-?[\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)\s*"')
 _RULE_RE = re.compile(r"([^{}]+)\{((?:[^{}]|\{[^{}]*\})*)\}")
+_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+_SOURCE_HASH_RE = re.compile(r'data-source-hash="([0-9a-f]+)"')
 
 
 def _n(v: float) -> str:
@@ -166,7 +169,7 @@ def _pin(diagram: dict, rendered: dict[str, dict], ref: str) -> Point:
     return pin_position(part, (info["width"], info["height"]), (px, py))
 
 
-def compose_svg(diagram: dict, rendered: dict[str, dict]) -> str:
+def compose_svg(diagram: dict, rendered: dict[str, dict], source_hash: str | None = None) -> str:
     extent: list[Point] = []
     parts_markup: list[str] = []
     styles: list[str] = []
@@ -179,7 +182,9 @@ def compose_svg(diagram: dict, rendered: dict[str, dict]) -> str:
         w, h = float(info["width"]), float(info["height"])
         rot = float(part.get("rotate", 0))
         cx, cy = x + w / 2, y + h / 2
-        inner = place_svg(prefix_ids(info["svg"], scope), x, y, w, h)
+        # comentariile Lit (<!--?lit$<aleator>$-->) ar face fiecare randare diferită
+        markup = _COMMENT_RE.sub("", info["svg"])
+        inner = place_svg(prefix_ids(markup, scope), x, y, w, h)
         transform = f' transform="rotate({_n(rot)} {_n(cx)} {_n(cy)})"' if rot else ""
         parts_markup.append(f'<g id="{scope}"{transform}>{inner}</g>')
         if info.get("css"):
@@ -208,9 +213,10 @@ def compose_svg(diagram: dict, rendered: dict[str, dict]) -> str:
     maxy = max(p[1] for p in extent) + MARGIN
     w, h = maxx - minx, maxy - miny
     style = f"<style>{''.join(styles)}</style>" if styles else ""
+    hash_attr = f' data-source-hash="{source_hash}"' if source_hash else ""
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
-        f'viewBox="{_n(minx)} {_n(miny)} {_n(w)} {_n(h)}" width="{_n(w)}" height="{_n(h)}">'
+        f'viewBox="{_n(minx)} {_n(miny)} {_n(w)} {_n(h)}" width="{_n(w)}" height="{_n(h)}"{hash_attr}>'
         f"{style}"
         f'<rect x="{_n(minx)}" y="{_n(miny)}" width="{_n(w)}" height="{_n(h)}" fill="#ffffff"/>'
         f"{''.join(parts_markup)}{''.join(wires)}</svg>\n"
@@ -229,20 +235,35 @@ WOKWI_ELEMENTS_URL = (
     f"https://unpkg.com/@wokwi/elements@{WOKWI_ELEMENTS_VERSION}/dist/wokwi-elements.bundle.js"
 )
 _RENDER_JS = Path(__file__).with_name("wiring_render.js")
+# Se mărește când se schimbă ieșirea randării, ca toate schemele să fie regenerate.
+RENDER_VERSION = "1"
 
 
 def _warn(msg: str) -> None:
     print(f"Wiring: {msg}", file=sys.stderr)
 
 
+def source_hash(src: Path) -> str:
+    """Amprenta sursei: diagram.json + versiunea pieselor + versiunea randării."""
+    h = hashlib.sha256(src.read_bytes())
+    h.update(f"|{WOKWI_ELEMENTS_VERSION}|{RENDER_VERSION}".encode())
+    return h.hexdigest()[:16]
+
+
 def stale_diagrams(wiring_dir: Path, out_dir: Path) -> list[tuple[str, Path, Path]]:
+    """Schemele al căror SVG lipsește sau a fost generat din alt conținut.
+
+    Se compară conținutul, nu mtime-ul: după git clone/checkout, diagram.json
+    iese mereu mai nou decât SVG-ul commit-uit.
+    """
     if not wiring_dir.is_dir():
         return []
     todo = []
     for src in sorted(wiring_dir.glob("*/diagram.json")):
         name = src.parent.name
         dst = out_dir / f"{name}.svg"
-        if not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime:
+        m = _SOURCE_HASH_RE.search(dst.read_text("utf-8")[:1000]) if dst.exists() else None
+        if not m or m.group(1) != source_hash(src):
             todo.append((name, src, dst))
     return todo
 
@@ -252,7 +273,12 @@ def ensure_bundle(bundle: Path) -> Path:
         return bundle
     bundle.parent.mkdir(parents=True, exist_ok=True)
     _warn(f"descarc @wokwi/elements {WOKWI_ELEMENTS_VERSION}…")
-    urllib.request.urlretrieve(WOKWI_ELEMENTS_URL, bundle)  # noqa: S310 — URL fixat
+    part = bundle.with_name(bundle.name + ".part")
+    try:
+        urllib.request.urlretrieve(WOKWI_ELEMENTS_URL, part)  # noqa: S310 — URL fixat
+        part.replace(bundle)  # doar un fișier complet ajunge la numele final
+    finally:
+        part.unlink(missing_ok=True)
     return bundle
 
 
@@ -278,7 +304,14 @@ def render_all(wiring_dir: Path, out_dir: Path, bundle: Path) -> int:
         )
         return 0
 
-    bundle = ensure_bundle(bundle)
+    try:
+        bundle = ensure_bundle(bundle)
+    except Exception as exc:  # fără rețea
+        _warn(
+            f"{len(todo)} scheme neactualizate: descărcarea @wokwi/elements a eșuat "
+            f"({exc.__class__.__name__}). Folosesc SVG-urile existente."
+        )
+        return 0
     render_js = _RENDER_JS.read_text("utf-8")
     written = 0
     with sync_playwright() as p:
@@ -298,7 +331,9 @@ def render_all(wiring_dir: Path, out_dir: Path, bundle: Path) -> int:
                 try:
                     diagram = json.loads(src.read_text("utf-8"))
                     items = page.evaluate(render_js, diagram["parts"])
-                    svg = compose_svg(diagram, {item["id"]: item for item in items})
+                    svg = compose_svg(
+                        diagram, {item["id"]: item for item in items}, source_hash=source_hash(src)
+                    )
                 except Exception as exc:
                     raise RuntimeError(f"wiring/{name}/diagram.json: {exc}") from exc
                 dst.parent.mkdir(parents=True, exist_ok=True)

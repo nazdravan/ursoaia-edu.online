@@ -2,6 +2,8 @@ import json
 import os
 import sys
 import time
+import urllib.error
+from pathlib import Path
 import xml.etree.ElementTree as ET
 
 import pytest
@@ -25,16 +27,34 @@ def _write(tmp_path, name="led", diagram=LED_DIAGRAM):
     return tmp_path / "wiring", tmp_path / "out"
 
 
-def test_stale_diagrams_new_then_up_to_date(tmp_path):
+def test_stale_diagrams_by_content_not_mtime(tmp_path):
+    # după git clone, diagram.json e mereu mai nou decât SVG-ul: decide hash-ul, nu mtime-ul
     wiring_dir, out_dir = _write(tmp_path)
-    todo = wiring.stale_diagrams(wiring_dir, out_dir)
-    assert [t[0] for t in todo] == ["led"]
+    src = wiring_dir / "led" / "diagram.json"
+    assert [t[0] for t in wiring.stale_diagrams(wiring_dir, out_dir)] == ["led"]
     out_dir.mkdir()
     svg = out_dir / "led.svg"
-    svg.write_text("<svg/>", "utf-8")
-    future = time.time() + 10
-    os.utime(svg, (future, future))
+    svg.write_text(f'<svg data-source-hash="{wiring.source_hash(src)}"></svg>', "utf-8")
+    past = time.time() - 100
+    os.utime(svg, (past, past))
     assert wiring.stale_diagrams(wiring_dir, out_dir) == []
+    src.write_text(json.dumps({**LED_DIAGRAM, "version": 2}), "utf-8")
+    assert [t[0] for t in wiring.stale_diagrams(wiring_dir, out_dir)] == ["led"]
+
+
+def test_render_all_offline_warns_and_skips(tmp_path, monkeypatch, capsys):
+    pytest.importorskip("playwright.sync_api")
+    wiring_dir, out_dir = _write(tmp_path)
+    bundle = tmp_path / "tools" / "bundle.js"
+
+    def offline(url, dest):
+        Path(dest).write_text("// jumătate de fișier", "utf-8")
+        raise urllib.error.URLError("no network")
+
+    monkeypatch.setattr(wiring.urllib.request, "urlretrieve", offline)
+    assert wiring.render_all(wiring_dir, out_dir, bundle) == 0
+    assert "descărcarea" in capsys.readouterr().err
+    assert not bundle.exists()  # fără fișier trunchiat care ar strica rulările următoare
 
 
 def test_stale_diagrams_missing_dir_is_empty(tmp_path):
@@ -77,6 +97,10 @@ def test_render_all_real_chromium(tmp_path):
     assert svg.startswith("<svg ") and 'stroke="green"' in svg and '<g id="p-uno"' in svg
     ET.fromstring(svg)  # <img src=*.svg> e parsat ca XML: entitățile HTML (&nbsp;) îl strică
     assert wiring.render_all(wiring_dir, out_dir, bundle) == 0  # la zi
+    first = (out_dir / "led.svg").read_text("utf-8")
+    (out_dir / "led.svg").unlink()
+    assert wiring.render_all(wiring_dir, out_dir, bundle) == 1
+    assert (out_dir / "led.svg").read_text("utf-8") == first  # determinist
 
 
 class _FakeChromium:
