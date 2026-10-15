@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-16 -146 342 363.594" width="342" height="363.594" data-source-hash="2f902d18e0910ef2"><style>#p-uno text{ font-size: 2px; font-family: monospace; user-select: none; }
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-16 -146 342 363.594" width="342" height="363.594" data-source-hash="64c472d37ff39dde"><style>#p-uno text{ font-size: 2px; font-family: monospace; user-select: none; }
 #p-uno circle[tabindex]:hover, #p-uno circle[tabindex]:focus{ stroke: white; outline: none; }#p-r1{ display: flex; }#p-led1{ display: inline-block; }
 #p-led1 .led-container{ display: flex; flex-direction: column; width: 40px; }
-#p-led1 .led-label{ font-size: 10px; text-align: center; color: gray; position: relative; line-height: 1; top: -8px; }</style><rect x="-16" y="-146" width="342" height="363.594" fill="#ffffff"/><g id="p-uno"><svg x="0" y="0" width="274.312" height="201.594" version="1.1" viewBox="-4 0 72.58 53.34" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+#p-led1 .led-label{ font-size: 10px; text-align: center; color: gray; position: relative; line-height: 1; top: -8px; }</style><rect x="-16" y="-146" width="342" height="363.594" fill="#ffffff"/><g id="p-uno"><svg x="0" y="0" width="274.312" height="201.594" overflow="visible" version="1.1" viewBox="-4 0 72.58 53.34" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
           <g id="p-uno-led-body" fill="#eee">
             <rect x="0" y="0" height="1.2" width="2.6" fill="#c6c6c6"/>
@@ -199,7 +199,7 @@
         <rect style="fill:none;stroke:#fff;stroke-width:0.1;stroke-dasharray:0.1, 0.1" width="11" height="5.45" x="45.19" y="11.83" rx="1" ry="1"/>
 
         <text x="46.5" y="16" style="font-size:5px; line-height:1.25" fill="#fff">UNO</text>
-      </svg></g><g id="p-r1"><svg x="230" y="-70" width="59.125" height="11.328" version="1.1" viewBox="0 0 15.645 3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      </svg></g><g id="p-r1"><svg x="230" y="-70" width="59.125" height="11.328" overflow="visible" version="1.1" viewBox="0 0 15.645 3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
           <linearGradient id="p-r1-a" x2="0" y1="22.332" y2="38.348" gradientTransform="matrix(.14479 0 0 .14479 -23.155 -4.0573)" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
             <stop stop-color="#323232" offset="0"/>
@@ -220,7 +220,7 @@
             <use xlink:href="#p-r1-body"/>
           </clipPath>
         </g>
-      </svg></g><g id="p-led1"><svg x="170" y="-130" width="40" height="50" version="1.2" viewBox="-10 -5 35.456 39.618" xmlns="http://www.w3.org/2000/svg" transform="scale(1 1)">
+      </svg></g><g id="p-led1"><svg x="170" y="-130" width="40" height="50" overflow="visible" version="1.2" viewBox="-10 -5 35.456 39.618" xmlns="http://www.w3.org/2000/svg" transform="scale(1 1)">
       <filter id="p-led1-light1" x="-0.8" y="-0.8" height="2.2" width="2.8">
         <feGaussianBlur stdDeviation="2"/>
       </filter>

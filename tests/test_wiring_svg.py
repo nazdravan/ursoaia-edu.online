@@ -124,3 +124,16 @@ def test_compose_svg_embeds_source_hash():
     d = _diagram(parts=[{"type": "wokwi-led", "id": "led1", "top": 0, "left": 0}], connections=[])
     out = compose_svg(d, {"led1": fake(19, 42, {})}, source_hash="abc123")
     assert out.startswith("<svg ") and 'data-source-hash="abc123"' in out[: out.index(">")]
+
+
+def test_place_svg_lets_parts_draw_outside_their_box():
+    # keypad-ul își desenează cablul (și pinii) sub cutia SVG-ului
+    head = place_svg(LED_SVG, 0, 0, 19, 42)
+    assert 'overflow="visible"' in head[: head.index(">")]
+
+
+def test_compose_svg_viewbox_includes_pins_outside_part_box():
+    d = _diagram(parts=[{"type": "wokwi-membrane-keypad", "id": "kp", "top": 0, "left": 0}], connections=[])
+    out = compose_svg(d, {"kp": fake(266, 287, {"R1": [100, 338]})})
+    minx, miny, w, h = [float(v) for v in re.search(r'viewBox="([^"]+)"', out).group(1).split()]
+    assert miny + h >= 338 + 16 - 0.01

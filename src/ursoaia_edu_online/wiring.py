@@ -153,7 +153,8 @@ def place_svg(markup: str, x: float, y: float, w: float, h: float) -> str:
     attrs = _SIZE_ATTR_RE.sub("", m.group(1))
     if "viewBox" not in attrs:
         attrs += f' viewBox="0 0 {_n(w)} {_n(h)}"'
-    new_open = f'<svg x="{_n(x)}" y="{_n(y)}" width="{_n(w)}" height="{_n(h)}"{attrs}>'
+    attrs = re.sub(r'\soverflow="[^"]*"', "", attrs)
+    new_open = f'<svg x="{_n(x)}" y="{_n(y)}" width="{_n(w)}" height="{_n(h)}" overflow="visible"{attrs}>'
     return markup[: m.start()] + new_open + markup[m.end():]
 
 
@@ -191,6 +192,9 @@ def compose_svg(diagram: dict, rendered: dict[str, dict], source_hash: str | Non
             styles.append(scope_css(info["css"], scope))
         for corner in ((x, y), (x + w, y), (x, y + h), (x + w, y + h)):
             extent.append(rotate_point(corner, (cx, cy), rot))
+        # unele piese desenează în afara cutiei (cablul keypad-ului): pinii intră în încadrare
+        for px, py in info["pins"].values():
+            extent.append(pin_position(part, (w, h), (px, py)))
 
     wires: list[str] = []
     for conn in diagram.get("connections", []):
@@ -236,7 +240,7 @@ WOKWI_ELEMENTS_URL = (
 )
 _RENDER_JS = Path(__file__).with_name("wiring_render.js")
 # Se mărește când se schimbă ieșirea randării, ca toate schemele să fie regenerate.
-RENDER_VERSION = "1"
+RENDER_VERSION = "2"
 
 
 def _warn(msg: str) -> None:

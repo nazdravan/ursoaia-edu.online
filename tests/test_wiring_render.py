@@ -1,4 +1,5 @@
 import json
+import re
 import os
 import sys
 import time
@@ -130,3 +131,20 @@ def test_launch_browser_raises_when_nothing_available():
     fake = _FakePlaywright("none")
     with pytest.raises(RuntimeError):
         wiring._launch_browser(fake)
+
+
+def test_render_all_uses_top_level_part_svg(tmp_path):
+    # wokwi-buzzer are și un <svg> mic imbricat; trebuie luat cel de pe nivelul de sus
+    sync_api = pytest.importorskip("playwright.sync_api")
+    try:
+        with sync_api.sync_playwright() as p:
+            wiring._launch_browser(p).close()
+    except Exception:
+        pytest.skip("Chromium nu e instalat")
+    diagram = {"parts": [{"type": "wokwi-buzzer", "id": "bz", "top": 0, "left": 0, "attrs": {}}], "connections": []}
+    wiring_dir, out_dir = _write(tmp_path, "bz", diagram)
+    bundle = wiring.ensure_bundle(Path("tools/wokwi/wokwi-elements.bundle.js").resolve())
+    assert wiring.render_all(wiring_dir, out_dir, bundle) == 1
+    svg = (out_dir / "bz.svg").read_text("utf-8")
+    w = float(re.search(r'<g id="p-bz"><svg x="0" y="0" width="([\d.]+)"', svg).group(1))
+    assert w > 40

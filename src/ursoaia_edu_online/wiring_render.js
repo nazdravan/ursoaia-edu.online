@@ -14,7 +14,11 @@ async (parts) => {
     el.style.position = "absolute";
     document.body.appendChild(el);
     await el.updateComplete;
-    const svg = el.shadowRoot && el.shadowRoot.querySelector("svg");
+    // cel mai mare <svg> exterior din shadow root (wokwi-buzzer are întâi o notă muzicală ascunsă)
+    const area = (s) => { const r = s.getBoundingClientRect(); return r.width * r.height; };
+    const svg = el.shadowRoot && [...el.shadowRoot.querySelectorAll("svg")]
+      .filter((s) => !s.parentElement || !s.parentElement.closest("svg"))
+      .sort((a, b) => area(b) - area(a))[0];
     if (!svg) throw new Error(`piesa ${part.id} nu are <svg>`);
     let css = "";
     for (const sheet of el.shadowRoot.adoptedStyleSheets || []) {
