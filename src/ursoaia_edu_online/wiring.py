@@ -6,8 +6,12 @@ compunerea SVG-ului final se fac aici, în Python pur, ca să fie testabile.
 """
 from __future__ import annotations
 
+import json
 import math
 import re
+import sys
+import urllib.request
+from pathlib import Path
 
 Point = tuple[float, float]
 
@@ -207,3 +211,89 @@ def svg_size(svg_text: str) -> tuple[int, int]:
     if not m:
         raise ValueError("SVG fără viewBox")
     return round(float(m.group(3))), round(float(m.group(4)))
+
+
+WOKWI_ELEMENTS_VERSION = "1.9.1"
+WOKWI_ELEMENTS_URL = (
+    f"https://unpkg.com/@wokwi/elements@{WOKWI_ELEMENTS_VERSION}/dist/wokwi-elements.bundle.js"
+)
+_RENDER_JS = Path(__file__).with_name("wiring_render.js")
+
+
+def _warn(msg: str) -> None:
+    print(f"Wiring: {msg}", file=sys.stderr)
+
+
+def stale_diagrams(wiring_dir: Path, out_dir: Path) -> list[tuple[str, Path, Path]]:
+    if not wiring_dir.is_dir():
+        return []
+    todo = []
+    for src in sorted(wiring_dir.glob("*/diagram.json")):
+        name = src.parent.name
+        dst = out_dir / f"{name}.svg"
+        if not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime:
+            todo.append((name, src, dst))
+    return todo
+
+
+def ensure_bundle(bundle: Path) -> Path:
+    if bundle.exists():
+        return bundle
+    bundle.parent.mkdir(parents=True, exist_ok=True)
+    _warn(f"descarc @wokwi/elements {WOKWI_ELEMENTS_VERSION}…")
+    urllib.request.urlretrieve(WOKWI_ELEMENTS_URL, bundle)  # noqa: S310 — URL fixat
+    return bundle
+
+
+def _launch_browser(playwright):
+    """Chromium-ul Playwright, altfel Google Chrome instalat (Playwright nu are build pentru macOS 13)."""
+    try:
+        return playwright.chromium.launch()
+    except Exception:
+        return playwright.chromium.launch(channel="chrome")
+
+
+def render_all(wiring_dir: Path, out_dir: Path, bundle: Path) -> int:
+    todo = stale_diagrams(wiring_dir, out_dir)
+    if not todo:
+        _warn("0 scheme de regenerat (la zi)")
+        return 0
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        _warn(
+            f"{len(todo)} scheme neactualizate: lipsește Playwright "
+            "(uv sync --extra diagrams && uv run playwright install chromium). Folosesc SVG-urile existente."
+        )
+        return 0
+
+    bundle = ensure_bundle(bundle)
+    render_js = _RENDER_JS.read_text("utf-8")
+    written = 0
+    with sync_playwright() as p:
+        try:
+            browser = _launch_browser(p)
+        except Exception as exc:  # browser lipsă / sandbox
+            _warn(
+                f"{len(todo)} scheme neactualizate: Chromium nu pornește ({exc.__class__.__name__}). "
+                "Rulează `uv run playwright install chromium`."
+            )
+            return 0
+        try:
+            page = browser.new_page()
+            page.set_content('<!doctype html><meta charset="utf-8"><body></body>')
+            page.add_script_tag(path=str(bundle))
+            for name, src, dst in todo:
+                try:
+                    diagram = json.loads(src.read_text("utf-8"))
+                    items = page.evaluate(render_js, diagram["parts"])
+                    svg = compose_svg(diagram, {item["id"]: item for item in items})
+                except Exception as exc:
+                    raise RuntimeError(f"wiring/{name}/diagram.json: {exc}") from exc
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                dst.write_text(svg, "utf-8")
+                written += 1
+        finally:
+            browser.close()
+    _warn(f"{written} scheme regenerate")
+    return written
