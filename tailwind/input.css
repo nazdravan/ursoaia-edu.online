@@ -257,6 +257,48 @@
 }
 .prose figure.wiring figcaption a { font-weight: 500; }
 
+/* Zoom pe scheme (custom_theme/assets/wiring-zoom.js) */
+.prose figure.wiring { position: relative; cursor: zoom-in; }
+.prose figure.wiring:focus-visible { outline: 2px solid #f97316; outline-offset: 3px; }
+.wiring__zoom-badge {
+  position: absolute; top: 0.6rem; right: 0.6rem; display: flex; padding: 0.4rem;
+  border-radius: 0.5rem; background: rgba(24, 24, 27, 0.72); color: #ffffff;
+  opacity: 0.7; transition: opacity 0.2s; pointer-events: none;
+}
+.prose figure.wiring:hover .wiring__zoom-badge,
+.prose figure.wiring:focus-visible .wiring__zoom-badge { opacity: 1; }
+html.wiring-zoom-open { overflow: hidden; }
+.wiring-zoom {
+  position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column;
+  background: rgba(9, 9, 11, 0.92);
+}
+.wiring-zoom[hidden] { display: none; }
+.wiring-zoom__stage { position: relative; flex: 1; overflow: hidden; touch-action: none; cursor: grab; }
+.wiring-zoom__stage.is-dragging { cursor: grabbing; }
+.wiring-zoom__img {
+  position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0;
+  background: #ffffff; border-radius: 0.5rem; user-select: none; -webkit-user-select: none;
+}
+.wiring-zoom__bar {
+  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 0.75rem);
+  right: calc(env(safe-area-inset-right, 0px) + 0.75rem);
+  display: flex; align-items: center; gap: 0.25rem; padding: 0.25rem;
+  border-radius: 0.75rem; background: rgba(39, 39, 42, 0.92); color: #ffffff;
+}
+.wiring-zoom__bar button {
+  display: flex; padding: 0.5rem; border: 0; border-radius: 0.5rem;
+  background: transparent; color: inherit; cursor: pointer;
+}
+.wiring-zoom__bar button:hover { background: rgba(255, 255, 255, 0.12); }
+.wiring-zoom__bar button:focus-visible { outline: 2px solid #f97316; outline-offset: 1px; }
+.wiring-zoom__pct { min-width: 3.2rem; text-align: center; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.wiring-zoom__hint {
+  position: absolute; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 0.75rem);
+  transform: translateX(-50%); max-width: calc(100% - 2rem); margin: 0; padding: 0.35rem 0.75rem;
+  border-radius: 999px; background: rgba(39, 39, 42, 0.85); color: #d4d4d8; font-size: 0.75rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;
+}
+
 /* Keyboard keys (pymdownx.keys) */
 .prose .keys { white-space: nowrap; }
 .prose .keys kbd {
