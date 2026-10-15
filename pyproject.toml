@@ -12,12 +12,22 @@ dependencies = [
     "pymdown-extensions>=10.21.2",
 ]
 
+[project.optional-dependencies]
+diagrams = ["playwright>=1.47"]
+
+[dependency-groups]
+dev = ["pytest>=8.3"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
 [project.scripts]
 dev = "ursoaia_edu_online:serve"
 serve = "ursoaia_edu_online:serve"
 build = "ursoaia_edu_online:build"
 build-css = "ursoaia_edu_online:build_css"
 build-images = "ursoaia_edu_online:build_images"
+build-diagrams = "ursoaia_edu_online:build_diagrams"
 
 [build-system]
 requires = ["hatchling"]
