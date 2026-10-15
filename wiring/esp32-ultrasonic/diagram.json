@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-hc-sr04", "id": "us", "top": -180, "left": 170, "attrs": {}},
+    {"type": "wokwi-resistor", "id": "r1", "top": -16.1, "left": 240.42, "attrs": {"value": "1000"}, "rotate": 90},
+    {"type": "wokwi-resistor", "id": "r2", "top": 83.9, "left": 270.42, "attrs": {"value": "2000"}, "rotate": 90}
+  ],
+  "connections": [
+    ["us:TRIG", "esp:D5", "orange", ["v25.5", "h-101.3", "v151", "h-48.7", "v0.3"]],
+    ["us:ECHO", "r1:1", "yellow", ["v25.5", "h8.7", "v20"]],
+    ["r1:2", "esp:D18", "yellow", ["v21.2", "h-110", "v42", "h-58.7", "v-0.3"]],
+    ["r1:2", "r2:1", "yellow", ["v21.2", "h30", "v20"]],
+    ["r2:2", "esp:GND.1", "black", ["v51.2", "h-175", "v-21", "h-23.7"]],
+    ["us:GND", "esp:GND.1", "black", ["v15.5", "h58.7", "v250", "h-210", "v-31", "h-18.7"]],
+    ["us:VCC", "esp:VIN", "red", ["v-4.5", "h-271.3", "v249", "h35", "v-0.5"]]
+  ],
+  "dependencies": {}
+}

@@ -44,6 +44,8 @@ There's no built-in `Servo` library on the ESP32 the way there is on Arduino —
 | V+ | red | Vin / 5V (see note) |
 | Signal | orange / yellow | GPIO 13 |
 
+[[wokwi:esp32-servo]]
+
 ```board
     ESP32                Servo SG90
    GPIO 13 ──── orange ── Signal

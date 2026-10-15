@@ -53,6 +53,8 @@ Arduino trimite semnale către pinii **IN1–IN4**, iar driver-ul comandă bobin
 
 Motorul se conectează în **jack-ul alb** de pe modul (nu-l poți greși — se potrivește doar într-o poziție).
 
+[[wokwi:stepper-motor]]
+
 ## Cod
 
 ```cpp

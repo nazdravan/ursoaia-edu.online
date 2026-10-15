@@ -64,6 +64,8 @@ Folosim **GPIO 25, 26, 27** — sunt liberi pe orice DevKit V1 și suportă PWM 
 | B (albastru)| GPIO 27 (prin 220 Ω) |
 | Catod comun (−) | GND |
 
+[[wokwi:esp32-rgb-led]]
+
 ```board
     ESP32             LED RGB (catod comun)
    GPIO 25 ──[220Ω]──── R

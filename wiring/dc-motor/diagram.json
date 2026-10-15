@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "ursoaia-l293d", "id": "drv", "top": -120, "left": 186, "attrs": {}},
+    {"type": "ursoaia-dc-motor", "id": "m", "top": -150, "left": 360, "attrs": {}},
+    {"type": "ursoaia-battery-9v", "id": "bat", "top": -40, "left": 400, "attrs": {}}
+  ],
+  "connections": [
+    ["drv:EN1", "uno:5", "orange", ["v32", "h11.2", "v49"]],
+    ["drv:IN1", "uno:4", "yellow", ["v26", "h11.1", "v55"]],
+    ["drv:IN2", "uno:3", "green", ["v52", "h-27.4", "v29"]],
+    ["drv:OUT1", "m:1", "blue", ["v20", "h114", "v-76", "h30"]],
+    ["drv:OUT2", "m:2", "purple", ["v14", "h95.2", "v-54", "h20"]],
+    ["drv:GND.1", "drv:GND.2", "black", ["v6", "h9.6", "v-6"]],
+    ["drv:GND.1", "uno:GND.1", "black", ["v6", "h-50.6", "v56", "h-59.5", "v19"]],
+    ["drv:VS", "bat:+", "red", ["v10", "h116", "v12", "h38", "v10"]],
+    ["drv:VSS", "uno:5V", "red", ["v-12", "h-36.8", "v6", "h-200", "v351", "h200", "v-33.5"]],
+    ["bat:-", "uno:GND.2", "black", ["v-15", "h38", "v290", "h-310.5", "v-43.5"]]
+  ],
+  "dependencies": {}
+}

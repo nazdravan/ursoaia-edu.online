@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-relay-module", "id": "rel", "top": -110, "left": 300, "attrs": {}}
+  ],
+  "connections": [
+    ["uno:8", "rel:IN", "green", ["v-47", "h127", "v-30"]],
+    ["rel:VCC", "uno:5V", "red", ["h-10", "v307", "h-130", "v-23.5"]],
+    ["rel:GND", "uno:GND.2", "black", ["h-16", "v305", "h-114.5", "v-33.5"]]
+  ],
+  "dependencies": {}
+}

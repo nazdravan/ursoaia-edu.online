@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "ursoaia-uln2003", "id": "drv", "top": -150, "left": 300, "attrs": {}},
+    {"type": "ursoaia-28byj48", "id": "m", "top": -330, "left": 440, "attrs": {}},
+    {"type": "wokwi-ir-receiver", "id": "ir", "top": -150, "left": 94.5, "attrs": {}}
+  ],
+  "connections": [
+    ["uno:8", "drv:IN1", "blue", ["v-29", "h107", "v-104", "h20"]],
+    ["uno:9", "drv:IN2", "pink", ["v-35", "h111", "v-88", "h26"]],
+    ["uno:10", "drv:IN3", "yellow", ["v-41", "h114.5", "v-72", "h32"]],
+    ["uno:11", "drv:IN4", "orange", ["v-47", "h118", "v-56", "h38"]],
+    ["drv:VCC", "uno:5V", "red", ["v279", "h-228", "v-33.5"]],
+    ["drv:GND", "uno:GND.2", "black", ["v289", "h-228.5", "v-43.5"]],
+    ["m:MOTOR", "drv:MOTOR", "gray", ["v10", "h-140", "v20"]],
+    ["ir:DAT", "uno:12", "green", ["h-0.18", "v71.25"]],
+    ["ir:GND", "uno:GND.1", "black", ["v22.25", "h0.02", "v49"]],
+    ["ir:VCC", "uno:5V", "red", ["v14.25", "h-155.08", "v263", "h190", "v-23.5"]]
+  ],
+  "dependencies": {}
+}

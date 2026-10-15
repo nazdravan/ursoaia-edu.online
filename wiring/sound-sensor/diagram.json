@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-big-sound-sensor", "id": "mic", "top": 60, "left": 330, "attrs": {}}
+  ],
+  "connections": [
+    ["uno:A0", "mic:AOUT", "green", ["v18.5", "h92", "v-139", "h30"]],
+    ["uno:GND.2", "mic:GND", "black", ["v28.5", "h138.5", "v-139.5", "h22"]],
+    ["uno:5V", "mic:VCC", "red", ["v38.5", "h156", "v-139.5", "h14"]],
+    ["uno:7", "mic:DOUT", "orange", ["v-24", "h103", "v115.5", "h38"]]
+  ],
+  "dependencies": {}
+}

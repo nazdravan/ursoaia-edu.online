@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-ir-receiver", "id": "ir", "top": -130, "left": 104, "attrs": {}}
+  ],
+  "connections": [
+    ["ir:DAT", "uno:11", "green", ["h-0.18", "v51.25"]],
+    ["ir:GND", "uno:GND.1", "black", ["v17.25", "h-9.48", "v34"]],
+    ["ir:VCC", "uno:5V", "red", ["v10.25", "h-164.58", "v247", "h190", "v-23.5"]]
+  ],
+  "dependencies": {}
+}

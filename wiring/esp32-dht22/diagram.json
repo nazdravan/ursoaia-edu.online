@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-dht22", "id": "dht", "top": -40, "left": -170, "attrs": {}},
+    {"type": "wokwi-resistor", "id": "r1", "top": 150, "left": -260, "attrs": {"value": "10000"}}
+  ],
+  "connections": [
+    ["esp:D14", "dht:SDA", "blue", ["h-30"]],
+    ["esp:GND.2", "dht:GND", "black", ["h-15"]],
+    ["esp:3V3", "dht:VCC", "red", ["h15", "v50", "h-271.3"]],
+    ["r1:2", "dht:VCC", "red", ["h20"]],
+    ["r1:1", "dht:SDA", "blue", ["v-50", "h114.5"]]
+  ],
+  "dependencies": {}
+}

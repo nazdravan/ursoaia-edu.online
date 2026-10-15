@@ -49,8 +49,7 @@ Cubul folosește **multiplexarea pe straturi**:
 
 ## Schema de conectare
 
-![Schema Cubului LED](../../assets/images/projects/arduino/led_cube_schematic.svg)
-
+[[wokwi:led-cube]]
 ```board
                         Arduino Uno
                      ┌──────────────────┐

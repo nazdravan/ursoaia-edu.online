@@ -53,6 +53,8 @@ Privind tastatura de sus, cu cablul ieșind spre tine, pinii sunt de la stânga 
 | P7 | D3 | Coloană 3 |
 | P8 | D2 | Coloană 4 |
 
+[[wokwi:membrane-switch]]
+
 ## Cod
 
 ```cpp

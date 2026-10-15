@@ -60,6 +60,8 @@ Sau, echivalent: `durată / 58,3`.
 
 ### Divizor de tensiune pentru Echo (HC-SR04 clasic)
 
+[[wokwi:esp32-ultrasonic]]
+
 ```board
    Echo (5 V) ──[ 1 kΩ ]──┬── GPIO 18 (3,3 V)
                            │

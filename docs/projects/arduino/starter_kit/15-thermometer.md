@@ -57,6 +57,8 @@ Când temperatura crește → rezistența termistorului scade → mai mult curen
 | Termistor (picior 1) | 5V |
 | Termistor (picior 2) | A0 + rezistență 10 kΩ la GND |
 
+[[wokwi:thermometer]]
+
 ## Cod
 
 ```cpp

@@ -64,11 +64,9 @@ Se recomandă o rezistență pull-up de 10 kΩ între DATA și VCC pentru comuni
 
 > **DHT11 vs DHT22:** DHT11 are o precizie mai mică (±2°C, ±5% RH) și un domeniu mai restrâns. DHT22 este mai precis (±0.5°C, ±2–5% RH) și suportă un domeniu mai larg de temperaturi.
 
-### Scheme de conectare
+### Schema de conectare
 
-![Schema de cablare ESP32 cu senzor DHT11](../../assets/images/projects/esp32/ESP32-interfacing-with-dht11.webp)
-
-![Schema de cablare ESP32 cu senzor DHT22](../../assets/images/projects/esp32/esp32-micropython-dht22-temperature-humidity-sensor-wiring-diagram.jpg)
+[[wokwi:esp32-dht22]]
 
 ---
 

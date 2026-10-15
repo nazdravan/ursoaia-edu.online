@@ -44,6 +44,8 @@ Pentru buton, folosim `INPUT_PULLUP` (ca la Proiectul 4) pentru că modulul nu a
 | VRy | A1 |
 | SW (buton) | D2 |
 
+[[wokwi:joystick]]
+
 ```board
     Arduino             Joystick
      5V   ────────── +5V

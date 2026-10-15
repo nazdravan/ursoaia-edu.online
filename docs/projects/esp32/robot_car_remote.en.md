@@ -31,6 +31,8 @@ The ESP32-CAM robot creates a Wi-Fi access point (`ESP32-CAM Robot`, open networ
 
 ## Wiring
 
+[[wokwi:esp32-robot-car-remote]]
+
 ```board
 ESP32 DevKit V1
 ┌──────────────────────┐

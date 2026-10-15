@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-buzzer", "id": "bz", "top": -130, "left": 136, "attrs": {}}
+  ],
+  "connections": [
+    ["uno:8", "bz:2", "red", ["v-55"]],
+    ["bz:1", "uno:GND.1", "black", ["v21", "h-47.5", "v34"]]
+  ],
+  "dependencies": {}
+}

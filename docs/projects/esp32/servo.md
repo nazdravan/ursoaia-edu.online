@@ -44,6 +44,8 @@ Pe ESP32 nu există o bibliotecă „Servo" încorporată ca pe Arduino — folo
 | V+ | roșu | Vin / 5V (vezi nota) |
 | Semnal | portocaliu / galben | GPIO 13 |
 
+[[wokwi:esp32-servo]]
+
 ```board
     ESP32                Servo SG90
    GPIO 13 ──── portocaliu ── Semnal

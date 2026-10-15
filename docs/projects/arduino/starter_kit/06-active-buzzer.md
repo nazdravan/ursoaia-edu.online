@@ -43,6 +43,8 @@ Activul are și **polaritate**:
 | `+` (pin lung) | D8 |
 | `−` (pin scurt) | GND |
 
+[[wokwi:buzzer]]
+
 ```board
     Arduino
      D8  ────── Buzzer (+) 

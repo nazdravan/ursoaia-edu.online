@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-analog-joystick", "id": "joy", "top": -150, "left": -200, "attrs": {}}
+  ],
+  "connections": [
+    ["joy:HORZ", "esp:D34", "green", ["v34.2", "h107.8", "v53", "h45", "v0.1"]],
+    ["joy:VERT", "esp:D35", "blue", ["v42.2", "h107.4", "v55", "h55", "v-0.1"]],
+    ["joy:SEL", "esp:D32", "orange", ["v26.2", "h108.2", "v80", "h35", "v0.2"]],
+    ["joy:GND", "esp:GND.2", "black", ["v18.2", "h108.59", "v165", "h25"]],
+    ["joy:VCC", "esp:3V3", "red", ["v259.2", "h297", "v-66", "h-28.7", "v-0.5"]]
+  ],
+  "dependencies": {}
+}

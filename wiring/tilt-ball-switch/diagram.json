@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "ursoaia-tilt-switch", "id": "tilt", "top": -110, "left": 223.5, "attrs": {}}
+  ],
+  "connections": [
+    ["uno:2", "tilt:2", "green", ["h4.8", "v-55"]],
+    ["tilt:1", "uno:GND.1", "black", ["v21", "h-116.2", "v34"]]
+  ],
+  "dependencies": {}
+}

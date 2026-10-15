@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-analog-joystick", "id": "joy", "top": -175, "left": 174.5, "attrs": {}}
+  ],
+  "connections": [
+    ["joy:SEL", "uno:2", "orange", ["h0.2", "v68.2"]],
+    ["joy:HORZ", "uno:A0", "green", ["v14.2", "h-256.7", "v270", "h238", "v-33.5"]],
+    ["joy:VERT", "uno:A1", "blue", ["v19.2", "h-237.1", "v255", "h237.5", "v-23.5"]],
+    ["joy:VCC", "uno:5V", "red", ["v24.2", "h-217.5", "v240", "h170", "v-13.5"]],
+    ["joy:GND", "uno:GND.2", "black", ["v19.2", "h64.09", "v280", "h-140.5", "v-48.5"]]
+  ],
+  "dependencies": {}
+}

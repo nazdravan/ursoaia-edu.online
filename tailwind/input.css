@@ -230,6 +230,32 @@
   font-size: 0.875em;
 }
 .prose img { border-radius: 0.75rem; box-shadow: 0 4px 16px -4px rgba(0,0,0,0.2); }
+/* Scheme de conectare Wokwi (hooks/wokwi.py): fundal alb și în dark mode, piesele Wokwi sunt desenate pentru fundal deschis. */
+.prose figure.wiring {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  text-align: center;
+}
+.dark .prose figure.wiring { border-color: rgba(255,255,255,0.08); }
+.prose figure.wiring img {
+  display: inline-block;
+  width: 100%;
+  max-width: 36rem;
+  height: auto;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.prose figure.wiring figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: #6b7280;
+}
+.prose figure.wiring figcaption a { font-weight: 500; }
 
 /* Keyboard keys (pymdownx.keys) */
 .prose .keys { white-space: nowrap; }

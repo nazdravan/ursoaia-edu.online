@@ -63,6 +63,8 @@ L293D este un cip cu 16 pini care conține **două H-punți**. O H-punte permite
 | 16 (VSS)  | 5V Arduino |
 | GND sursă externă | GND Arduino (masa comună!) |
 
+[[wokwi:dc-motor]]
+
 ## Cod
 
 ```cpp

@@ -48,6 +48,8 @@ Potențiometrul albastru de pe modul reglează pragul pentru DO. **Are nevoie de
 | AO (analog) | A0 |
 | DO (digital) | D7 |
 
+[[wokwi:sound-sensor]]
+
 ```board
     Arduino              Senzor sunet
      5V   ──────────── VCC

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-membrane-keypad", "id": "kp", "top": -390, "left": 63, "attrs": {}}
+  ],
+  "connections": [
+    ["kp:R1", "uno:9", "#8f5b2e", ["v22", "v39"]],
+    ["kp:R2", "uno:8", "red", ["v22", "v39"]],
+    ["kp:R3", "uno:7", "orange", ["v22", "h6.5", "v39"]],
+    ["kp:R4", "uno:6", "yellow", ["v22", "h6.5", "v39"]],
+    ["kp:C1", "uno:5", "green", ["v22", "h6.5", "v39"]],
+    ["kp:C2", "uno:4", "blue", ["v22", "h6.5", "v39"]],
+    ["kp:C3", "uno:3", "purple", ["v22", "h6.25", "v39"]],
+    ["kp:C4", "uno:2", "gray", ["v22", "h6", "v39"]]
+  ],
+  "dependencies": {}
+}

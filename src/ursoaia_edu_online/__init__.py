@@ -3,7 +3,8 @@
 `build_css` compiles Tailwind via the standalone CLI; `build_images` writes a
 .webp sibling next to every raster image under docs/. `serve` and `build` run
 both first so the bundled stylesheet and WebP variants are fresh before MkDocs
-copies them into the site.
+copies them into the site. `build_diagrams` renders Wokwi wiring diagrams
+from `wiring/*/diagram.json` into `docs/assets/images/wiring/*.svg`.
 """
 from __future__ import annotations
 
@@ -28,6 +29,9 @@ TAILWIND_OUTPUT = PROJECT_ROOT / "custom_theme" / "assets" / "tailwind.css"
 DOCS_DIR = PROJECT_ROOT / "docs"
 WEBP_QUALITY = 80
 RASTER_EXTS = {".jpg", ".jpeg", ".png"}
+WIRING_DIR = PROJECT_ROOT / "wiring"
+WIRING_OUT = DOCS_DIR / "assets" / "images" / "wiring"
+WOKWI_BUNDLE = PROJECT_ROOT / "tools" / "wokwi" / "wokwi-elements.bundle.js"
 
 
 def _tailwind_asset() -> str:
@@ -97,11 +101,20 @@ def build_images() -> None:
     print(f"WebP: converted {converted}, skipped {skipped} (up-to-date)", file=sys.stderr)
 
 
+def build_diagrams() -> None:
+    """Regenerează SVG-urile Wokwi din wiring/*/diagram.json (vezi wiring.py)."""
+    from ursoaia_edu_online.wiring import render_all
+
+    render_all(WIRING_DIR, WIRING_OUT, WOKWI_BUNDLE)
+
+
 def serve() -> None:
     if os.environ.get("URSOAIA_SKIP_CSS") != "1":
         build_css()
     if os.environ.get("URSOAIA_SKIP_IMAGES") != "1":
         build_images()
+    if os.environ.get("URSOAIA_SKIP_DIAGRAMS") != "1":
+        build_diagrams()
     cli.main(args=["serve", *sys.argv[1:]], prog_name="uv run serve", standalone_mode=True)
 
 
@@ -110,4 +123,6 @@ def build() -> None:
         build_css()
     if os.environ.get("URSOAIA_SKIP_IMAGES") != "1":
         build_images()
+    if os.environ.get("URSOAIA_SKIP_DIAGRAMS") != "1":
+        build_diagrams()
     cli.main(args=["build", *sys.argv[1:]], prog_name="uv run build", standalone_mode=True)

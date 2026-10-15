@@ -50,6 +50,8 @@ Un servo rotește axul la un unghi specificat (între 0° și 180°) în funcți
 | Roșu (+) | 5 V |
 | Portocaliu (semnal) | D9 |
 
+[[wokwi:servo]]
+
 ```board
     Arduino                Servo SG90
      5V   ───── roșu   ── Putere (+)

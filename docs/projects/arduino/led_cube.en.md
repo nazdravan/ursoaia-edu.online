@@ -49,8 +49,7 @@ The cube uses **layer multiplexing**:
 
 ## Wiring Diagram
 
-![LED Cube Schematic](../../assets/images/projects/arduino/led_cube_schematic.svg)
-
+[[wokwi:led-cube]]
 ```board
                         Arduino Uno
                      ┌──────────────────┐

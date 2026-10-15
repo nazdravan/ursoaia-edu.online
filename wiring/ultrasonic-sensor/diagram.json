@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-hc-sr04", "id": "us", "top": -150, "left": 72.5, "attrs": {}}
+  ],
+  "connections": [
+    ["us:TRIG", "uno:10", "orange", ["h-0.3", "v64.5"]],
+    ["us:ECHO", "uno:9", "yellow", ["h-0.8", "v64.5"]],
+    ["us:VCC", "uno:5V", "red", ["v15.5", "h-173.8", "v255", "h190", "v-23.5"]],
+    ["us:GND", "uno:GND.2", "black", ["v25.5", "h146.2", "v255", "h-150.5", "v-33.5"]]
+  ],
+  "dependencies": {}
+}
