@@ -18,6 +18,7 @@ extra:
 hooks:
   - hooks/copy_well_known.py
   - hooks/lazy_images.py
+  - hooks/wokwi.py
 
 plugins:
   - search
