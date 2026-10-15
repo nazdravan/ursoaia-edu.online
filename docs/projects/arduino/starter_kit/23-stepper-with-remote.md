@@ -57,6 +57,8 @@ Motorul consumă destul de mult curent. În timp ce Arduino îl poate alimenta p
 | ULN2003 `+` | 5V (sau sursă externă) |
 | ULN2003 `−` | GND (comun cu Arduino) |
 
+[[wokwi:stepper-with-remote]]
+
 ## Cod
 
 ```cpp

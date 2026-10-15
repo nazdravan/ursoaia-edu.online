@@ -56,6 +56,8 @@ Același cablaj ca la Proiectul 16 pentru cele 8 LED-uri și 74HC595. În plus:
 | LDR (picior 1) | 5V |
 | LDR (picior 2) + 1 kΩ la GND | A0 |
 
+[[wokwi:photocell]]
+
 ## Cod
 
 ```cpp

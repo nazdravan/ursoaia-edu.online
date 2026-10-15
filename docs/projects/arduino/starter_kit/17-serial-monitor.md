@@ -49,6 +49,8 @@ Caracterele sunt de fapt numere în spatele scenelor (codul ASCII al `'0'` = 48,
 
 Identic cu **Proiect 16** — aceleași conexiuni la 74HC595 și LED-uri.
 
+[[wokwi:shift-register-leds]]
+
 ## Cod
 
 ```cpp

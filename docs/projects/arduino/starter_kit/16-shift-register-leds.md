@@ -60,6 +60,8 @@ Trimite 8 biți pe rând către cip. Fiecare bit corespunde unui LED.
 | Pin 8 (GND) | GND |
 | Q0..Q7 | prin 220 Ω la fiecare LED, LED-urile la GND |
 
+[[wokwi:shift-register-leds]]
+
 ## Cod
 
 ```cpp

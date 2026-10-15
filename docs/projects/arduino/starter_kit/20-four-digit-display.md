@@ -59,6 +59,8 @@ Vizualizează afișajul:
 | 74HC595 GND, OE | GND |
 | Q0..Q7 | prin 220 Ω la segmentele A–DP |
 
+[[wokwi:four-digit-display]]
+
 ## Cod
 
 ```cpp

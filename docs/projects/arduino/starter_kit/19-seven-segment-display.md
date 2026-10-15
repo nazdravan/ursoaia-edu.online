@@ -75,6 +75,8 @@ Cu aceeași logică de `shiftOut()` ca la Proiect 16, trimitem un byte unde fiec
 | Q0–Q7 | prin 220 Ω la segmentele A–DP ale afișajului |
 | Pin 3, 8 ai afișajului | GND (catod comun) |
 
+[[wokwi:seven-segment-display]]
+
 ## Cod
 
 ```cpp

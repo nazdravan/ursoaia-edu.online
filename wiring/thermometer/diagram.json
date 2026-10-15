@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+    {"type": "wokwi-lcd1602", "id": "lcd", "top": 250, "left": 60, "attrs": {"pins": "i2c"}},
+    {"type": "ursoaia-thermistor", "id": "ntc", "top": 60, "left": 330, "attrs": {}},
+    {"type": "wokwi-resistor", "id": "r1", "top": 103.9, "left": 350.42, "attrs": {"value": "10000"}, "rotate": 90}
+  ],
+  "connections": [
+    ["uno:GND.2", "lcd:GND", "black", ["v13.5", "h-129.5", "v77", "h24"]],
+    ["uno:5V", "lcd:VCC", "red", ["v20.5", "h-130", "v79.5", "h34"]],
+    ["uno:A4", "lcd:SDA", "blue", ["v27.5", "h-226", "v82", "h44"]],
+    ["uno:A5", "lcd:SCL", "purple", ["v34.5", "h-245.5", "v84.5", "h54"]],
+    ["ntc:1", "uno:5V", "red", ["v76", "h-178.2", "v-8.5"]],
+    ["ntc:2", "uno:A0", "green", ["v26", "h-47.8", "v55", "h-92", "v-13.5"]],
+    ["ntc:2", "r1:1", "green", ["v26", "h12.2", "v-90", "h20", "v20"]],
+    ["r1:2", "uno:GND.3", "black", ["v106.2", "h-201", "v-53.5"]]
+  ],
+  "dependencies": {}
+}
