@@ -148,3 +148,25 @@ def test_render_all_uses_top_level_part_svg(tmp_path):
     svg = (out_dir / "bz.svg").read_text("utf-8")
     w = float(re.search(r'<g id="p-bz"><svg x="0" y="0" width="([\d.]+)"', svg).group(1))
     assert w > 40
+
+
+def test_render_all_mixes_wokwi_and_custom_parts(tmp_path):
+    sync_api = pytest.importorskip("playwright.sync_api")
+    try:
+        with sync_api.sync_playwright() as p:
+            wiring._launch_browser(p).close()
+    except Exception:
+        pytest.skip("Chromium nu e instalat")
+    diagram = {
+        "parts": [
+            {"type": "wokwi-arduino-uno", "id": "uno", "top": 0, "left": 0, "attrs": {}},
+            {"type": "wokwi-74hc595", "id": "sr", "top": -120, "left": 60, "attrs": {}},
+        ],
+        "connections": [["uno:12", "sr:DS", "blue", []], ["uno:GND.1", "sr:GND", "black", []]],
+    }
+    wiring_dir, out_dir = _write(tmp_path, "sr", diagram)
+    bundle = wiring.ensure_bundle(Path("tools/wokwi/wokwi-elements.bundle.js").resolve())
+    assert wiring.render_all(wiring_dir, out_dir, bundle) == 1
+    svg = (out_dir / "sr.svg").read_text("utf-8")
+    assert '<g id="p-sr"' in svg and "74HC595" in svg
+    ET.fromstring(svg)

@@ -14,6 +14,8 @@ import sys
 import urllib.request
 from pathlib import Path
 
+from ursoaia_edu_online.custom_parts import CUSTOM_PARTS, render_custom
+
 Point = tuple[float, float]
 
 _STEP_RE = re.compile(r"^([hv])(-?\d+(?:\.\d+)?)$")
@@ -334,10 +336,12 @@ def render_all(wiring_dir: Path, out_dir: Path, bundle: Path) -> int:
             for name, src, dst in todo:
                 try:
                     diagram = json.loads(src.read_text("utf-8"))
-                    items = page.evaluate(render_js, diagram["parts"])
-                    svg = compose_svg(
-                        diagram, {item["id"]: item for item in items}, source_hash=source_hash(src)
-                    )
+                    native = [p for p in diagram["parts"] if p["type"] not in CUSTOM_PARTS]
+                    rendered = {item["id"]: item for item in page.evaluate(render_js, native)}
+                    for p in diagram["parts"]:
+                        if p["type"] in CUSTOM_PARTS:
+                            rendered[p["id"]] = render_custom(p["type"], p.get("attrs", {}))
+                    svg = compose_svg(diagram, rendered, source_hash=source_hash(src))
                 except Exception as exc:
                     raise RuntimeError(f"wiring/{name}/diagram.json: {exc}") from exc
                 dst.parent.mkdir(parents=True, exist_ok=True)
