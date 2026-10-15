@@ -2,6 +2,7 @@ import json
 import os
 import sys
 import time
+import xml.etree.ElementTree as ET
 
 import pytest
 
@@ -74,6 +75,7 @@ def test_render_all_real_chromium(tmp_path):
     assert wiring.render_all(wiring_dir, out_dir, bundle) == 1
     svg = (out_dir / "led.svg").read_text("utf-8")
     assert svg.startswith("<svg ") and 'stroke="green"' in svg and '<g id="p-uno"' in svg
+    ET.fromstring(svg)  # <img src=*.svg> e parsat ca XML: entitățile HTML (&nbsp;) îl strică
     assert wiring.render_all(wiring_dir, out_dir, bundle) == 0  # la zi
 
 

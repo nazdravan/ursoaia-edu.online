@@ -88,13 +88,11 @@ Dependențe noi: grupul opțional `diagrams = ["playwright>=1.47"]` în `pyproje
 
 ### Traseele firelor
 
-Folosim sintaxa Wokwi: o listă de pași `"v<n>"` / `"h<n>"`, deplasări relative în px.
+Folosim sintaxa Wokwi: o listă de pași `"v<n>"` / `"h<n>"`, deplasări relative în px. Semantica de mai jos a fost verificată pe wokwi.com pe 2026-10-15, prin citirea traseelor desenate de editor. Cazurile sunt fixate în `tests/test_wiring_geometry.py::test_route_matches_wokwi`.
 
 - Pașii dinainte de `"*"` pornesc de la pinul sursă și se aplică în ordine.
-- Pașii de după `"*"` se aplică de la pinul destinație, în ordine inversă, astfel încât traseul se termină în pin.
-- Distanța rămasă între cele două capete se închide cu un segment orizontal și unul vertical.
-
-În pilot verificăm vizual că aceleași trasee arată la fel pe wokwi.com. Dacă Wokwi închide diferit distanța rămasă, ajustăm regula și o notăm aici.
+- Pașii de după `"*"` pornesc din pinul destinație. Coada începe în destinație + suma pașilor și îi parcurge în ordine, cu semn invers, până în pin. De exemplu, `["*", "h-30"]` intră în pin din stânga, pe ultimii 30 px.
+- Golul dintre cap și coadă se închide cu un L. Dacă există coadă, ultimul segment al L-ului e perpendicular pe primul pas al cozii. Fără coadă, L-ul continuă orientarea ultimului pas din cap. Fără niciun pas, primul segment e orizontal.
 
 ### Fallback raster
 

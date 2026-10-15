@@ -26,7 +26,8 @@ async (parts) => {
       id: part.id,
       width: rect.width,
       height: rect.height,
-      svg: svg.outerHTML,
+      // XMLSerializer, nu outerHTML: SVG-ul final e XML, iar outerHTML scrie entități HTML (&nbsp;)
+      svg: new XMLSerializer().serializeToString(svg),
       css,
       pins: Object.fromEntries((el.pinInfo || []).map((p) => [p.name, [p.x, p.y]])),
     });

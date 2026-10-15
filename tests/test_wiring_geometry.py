@@ -26,10 +26,28 @@ def test_route_head_steps_from_source():
     assert route_points((0, 0), (50, -30), ["v-30"]) == [(0, 0), (0, -30), (50, -30)]
 
 
-def test_route_tail_steps_end_in_target():
-    # după "*": h50 trebuie să fie ultimul segment, care intră în pin
+def test_route_tail_steps_start_from_target():
+    # Wokwi: pașii de după "*" pornesc din destinație (start coadă = destinație + pași),
+    # iar golul se închide perpendicular pe pasul de coadă vecin (h → golul se termină vertical)
     pts = route_points((0, 0), (100, 60), ["v40", "*", "h50"])
-    assert pts == [(0, 0), (0, 40), (50, 40), (50, 60), (100, 60)]
+    assert pts == [(0, 0), (0, 40), (150, 40), (150, 60), (100, 60)]
+
+
+# Trasee citite din wokwi.com (Arduino UNO, 2026-10-15), colțurile rotunjite ignorate.
+@pytest.mark.parametrize("start,end,steps,expected", [
+    ((236.5, 9), (208, 191.5), [], [(236.5, 9), (208, 9), (208, 191.5)]),
+    ((208, 9), (236.5, 191.5), ["v20"], [(208, 9), (208, 29), (208, 191.5), (236.5, 191.5)]),
+    ((125, 9), (179, 191.5), ["h-20"], [(125, 9), (105, 9), (179, 9), (179, 191.5)]),
+    ((198.5, 9), (246, 191.5), ["*", "h15"], [(198.5, 9), (261, 9), (261, 191.5), (246, 191.5)]),
+    ((189, 9), (255.5, 191.5), ["*", "v15"], [(189, 9), (189, 206.5), (255.5, 206.5), (255.5, 191.5)]),
+    ((236.5, 9), (208, 191.5), ["*", "h15", "v15"],
+     [(236.5, 9), (223, 9), (223, 206.5), (208, 206.5), (208, 191.5)]),
+    ((227, 9), (217.5, 191.5), ["*", "v15", "h15"],
+     [(227, 9), (227, 206.5), (232.5, 206.5), (232.5, 191.5), (217.5, 191.5)]),
+    ((185, -88), (115.5, 9), ["v60"], [(185, -88), (185, -28), (185, 9), (115.5, 9)]),
+])
+def test_route_matches_wokwi(start, end, steps, expected):
+    assert route_points(start, end, steps) == expected
 
 
 def test_rotate_point_clockwise_on_screen():

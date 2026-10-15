@@ -33,6 +33,14 @@ def parse_step(step: str) -> Point:
 
 
 def route_points(start: Point, end: Point, steps: list[str]) -> list[Point]:
+    """Traseul unui fir, cu semantica Wokwi (verificată pe wokwi.com).
+
+    Pașii dinainte de "*" pornesc din sursă. Pașii de după "*" pornesc din
+    destinație: coada începe în destinație + suma pașilor și îi parcurge în
+    ordine, cu semn invers, până în pin. Golul dintre cap și coadă se închide
+    cu un L: perpendicular pe primul pas al cozii, sau, fără coadă, continuând
+    orientarea ultimului pas din cap (implicit orizontal întâi).
+    """
     if "*" in steps:
         star = steps.index("*")
         head, tail = steps[:star], steps[star + 1:]
@@ -41,18 +49,21 @@ def route_points(start: Point, end: Point, steps: list[str]) -> list[Point]:
 
     x, y = start
     pts: list[Point] = [(x, y)]
+    last_dir = "h"
     for step in head:
         dx, dy = parse_step(step)
         x, y = x + dx, y + dy
         pts.append((x, y))
+        last_dir = step.strip()[0]
 
     tail_moves = [parse_step(s) for s in tail]
-    tx = end[0] - sum(m[0] for m in tail_moves)
-    ty = end[1] - sum(m[1] for m in tail_moves)
-    pts.append((tx, y))
+    tx = end[0] + sum(m[0] for m in tail_moves)
+    ty = end[1] + sum(m[1] for m in tail_moves)
+    horizontal_first = tail[0].strip()[0] == "h" if tail else last_dir == "h"
+    pts.append((tx, y) if horizontal_first else (x, ty))
     pts.append((tx, ty))
     for dx, dy in tail_moves:
-        tx, ty = tx + dx, ty + dy
+        tx, ty = tx - dx, ty - dy
         pts.append((tx, ty))
 
     out: list[Point] = []
