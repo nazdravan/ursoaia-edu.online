@@ -50,32 +50,32 @@ Cubul folosește **multiplexarea pe straturi**:
 ## Schema de conectare
 
 [[wokwi:led-cube]]
+
 ```board
-                        Arduino Uno
-                     ┌──────────────────┐
-                     │                  │
-    Coloane          │  D2  ──[220Ω]──── C0 (anod LED)
-    (anozi)          │  D3  ──[220Ω]──── C1
-                     │  D4  ──[220Ω]──── C2
-                     │  D5  ──[220Ω]──── C3
-                     │  D6  ──[220Ω]──── C4
-                     │  D7  ──[220Ω]──── C5
-                     │  D8  ──[220Ω]──── C6
-                     │  D9  ──[220Ω]──── C7
-                     │  D10 ──[220Ω]──── C8
-                     │                  │
-    Straturi         │  D11 ──[1kΩ]──┐  │
-    (catozi           │  D12 ──[1kΩ]──┤  │
-     prin              │  D13 ──[1kΩ]──┤  │
-     tranzistoare)   │                │  │
-                     │  GND ──────────┘  │
-                     └──────────────────┘
+                  Arduino Uno
+               ┌──────────────
+  Coloane      │ D2  ──[220Ω]── C0 (anozii coloanei)
+  (anozi)      │ D3  ──[220Ω]── C1
+               │ D4  ──[220Ω]── C2
+               │ D5  ──[220Ω]── C3
+               │ D6  ──[220Ω]── C4
+               │ D7  ──[220Ω]── C5
+               │ D8  ──[220Ω]── C6
+               │ D9  ──[220Ω]── C7
+               │ D10 ──[220Ω]── C8
+               │
+  Straturi     │ D11 ──[1kΩ]─── baza T0 (stratul 0, jos)
+  (catozi,     │ D12 ──[1kΩ]─── baza T1 (stratul 1, mijloc)
+  prin         │ D13 ──[1kΩ]─── baza T2 (stratul 2, sus)
+  tranzistoare)│
+               │ GND ────────── emitoarele T0, T1, T2
+               └──────────────
 
-    Tranzistor 2N2222 (pentru fiecare strat):
+  Tranzistor 2N2222 (câte unul pentru fiecare strat):
 
-        Pin Arduino ──[1kΩ]──► Bază
-                               Colector ◄── Catozi strat (toate cele 9 LED-uri)
-                               Emitor ──► GND
+      Pin Arduino ──[1kΩ]──► Bază
+      Catozii stratului (9 LED-uri) ──► Colector
+      Emitor ──► GND
 ```
 
 ### Atribuire pini

@@ -50,32 +50,32 @@ The cube uses **layer multiplexing**:
 ## Wiring Diagram
 
 [[wokwi:led-cube]]
+
 ```board
-                        Arduino Uno
-                     ┌──────────────────┐
-                     │                  │
-    Columns          │  D2  ──[220Ω]──── C0 (LED anode)
-    (anodes)         │  D3  ──[220Ω]──── C1
-                     │  D4  ──[220Ω]──── C2
-                     │  D5  ──[220Ω]──── C3
-                     │  D6  ──[220Ω]──── C4
-                     │  D7  ──[220Ω]──── C5
-                     │  D8  ──[220Ω]──── C6
-                     │  D9  ──[220Ω]──── C7
-                     │  D10 ──[220Ω]──── C8
-                     │                  │
-    Layers           │  D11 ──[1kΩ]──┐  │
-    (cathodes         │  D12 ──[1kΩ]──┤  │
-     via               │  D13 ──[1kΩ]──┤  │
-     transistors)    │                │  │
-                     │  GND ──────────┘  │
-                     └──────────────────┘
+                  Arduino Uno
+               ┌──────────────
+  Columns      │ D2  ──[220Ω]── C0 (column anodes)
+  (anodes)     │ D3  ──[220Ω]── C1
+               │ D4  ──[220Ω]── C2
+               │ D5  ──[220Ω]── C3
+               │ D6  ──[220Ω]── C4
+               │ D7  ──[220Ω]── C5
+               │ D8  ──[220Ω]── C6
+               │ D9  ──[220Ω]── C7
+               │ D10 ──[220Ω]── C8
+               │
+  Layers       │ D11 ──[1kΩ]─── base of T0 (layer 0, bottom)
+  (cathodes,   │ D12 ──[1kΩ]─── base of T1 (layer 1, middle)
+  via          │ D13 ──[1kΩ]─── base of T2 (layer 2, top)
+  transistors) │
+               │ GND ────────── emitters of T0, T1, T2
+               └──────────────
 
-    2N2222 transistor (for each layer):
+  2N2222 transistor (one per layer):
 
-        Arduino Pin ──[1kΩ]──► Base
-                               Collector ◄── Layer cathodes (all 9 LEDs)
-                               Emitter ──► GND
+      Arduino pin ──[1kΩ]──► Base
+      Layer cathodes (9 LEDs) ──► Collector
+      Emitter ──► GND
 ```
 
 ### Pin Assignment

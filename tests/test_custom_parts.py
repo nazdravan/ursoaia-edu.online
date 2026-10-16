@@ -73,3 +73,10 @@ def test_augment_leaves_other_parts_alone():
     from ursoaia_edu_online.custom_parts import augment
     info = {"width": 1.0, "height": 1.0, "svg": "<svg/>", "css": "", "pins": {}}
     assert augment("wokwi-led", info) is info
+
+
+def test_npn_has_to92_pinout_emitter_base_collector():
+    pins = render_custom("ursoaia-npn", {})["pins"]
+    assert list(pins) == ["E", "B", "C"]
+    xs = [pins[k][0] for k in ("E", "B", "C")]
+    assert xs == sorted(xs)
