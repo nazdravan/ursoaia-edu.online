@@ -27,6 +27,11 @@ def test_relay_module_uses_wokwi_pin_names():
     assert set(render_custom("wokwi-relay-module", {})["pins"]) == {"VCC", "GND", "IN", "NO", "COM", "NC"}
 
 
+def test_oled_module_uses_wokwi_board_ssd1306_pin_names():
+    pins = render_custom("board-ssd1306", {})["pins"]
+    assert list(pins) == ["GND", "VCC", "SCL", "SDA"]
+
+
 def test_l293d_pins_follow_datasheet_numbering():
     pins = render_custom("ursoaia-l293d", {})["pins"]
     # pinul 1 (EN1) jos-stânga, pinul 16 (VSS) sus-stânga, ca la orice DIP
