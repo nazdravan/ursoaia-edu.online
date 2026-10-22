@@ -42,6 +42,7 @@ plugins:
             "Windows setup": Pregătire Windows
             Arduino: Arduino
             "LED Cube": Cub de LED-uri
+            "OLED Display": Display OLED
             "Starter Kits": Kit-uri de pornire
             "Starter Kit": Kit de pornire
             ESP32: ESP32
@@ -161,6 +162,7 @@ nav:
       - Arduino:
           - Overview: projects/arduino/index.md
           - LED Cube: projects/arduino/led_cube.md
+          - OLED Display: projects/arduino/oled_display.md
           - "Starter Kit":
               - Overview: projects/arduino/starter_kit/kits.md
               - Hello World: projects/arduino/starter_kit/01-hello-world.md
@@ -200,6 +202,7 @@ nav:
           - Temperature Web Server: projects/esp32/temperature_web.md
           - Robot Car Remote: projects/esp32/robot_car_remote.md
           - "ESP-NOW Messaging": projects/esp32/esp_now.md
+          - OLED Display: projects/esp32/oled_display.md
       - LoPy:
           - Overview: projects/lopy/index.md
           - LoRaWAN Node: projects/lopy/lorawan_node.md

@@ -101,6 +101,16 @@ Two ESP32 boards exchange messages **directly, with no router and no internet**,
 
 ---
 
+### [128x64 I2C OLED Display](oled_display.md)
+
+Show text and graphics on an SSD1306 OLED display with MicroPython — first using only the firmware's `machine.I2C` and `framebuf`, then with the **ssd1306** driver from micropython-lib.
+
+- **Components:** ESP32, 0.96" 128x64 I2C OLED display
+- **Concepts:** I2C, `framebuf`, screen buffer, `mip install`
+- **Difficulty:** beginner-intermediate
+
+---
+
 ## Why ESP32?
 
 | Feature | Detail |

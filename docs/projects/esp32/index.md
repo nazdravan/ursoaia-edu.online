@@ -101,6 +101,16 @@ Două plăci ESP32 schimbă mesaje **direct, fără router și fără internet**
 
 ---
 
+### [Display OLED 128x64 I2C](oled_display.md)
+
+Afișează text și grafică pe un display OLED SSD1306 cu MicroPython — întâi doar cu `machine.I2C` și `framebuf` din firmware, apoi cu driverul **ssd1306** din micropython-lib.
+
+- **Componente:** ESP32, display OLED 0.96" 128x64 I2C
+- **Concepte:** I2C, `framebuf`, buffer de ecran, `mip install`
+- **Dificultate:** începător-mediu
+
+---
+
 ## De ce ESP32?
 
 | Caracteristică | Detaliu |
