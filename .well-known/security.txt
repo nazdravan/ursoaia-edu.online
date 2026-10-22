@@ -1,5 +1,5 @@
-Contact: https://github.com/ursoaia-edu/ursoaia-edu.online/security/advisories/new
-Contact: https://github.com/ursoaia-edu/ursoaia-edu.online/issues
+Contact: https://github.com/nazdravan/ursoaia-edu.online/security/advisories/new
+Contact: https://github.com/nazdravan/ursoaia-edu.online/issues
 Expires: 2027-04-29T00:00:00.000Z
 Preferred-Languages: ro, en
 Canonical: https://ursoaia-edu.online/.well-known/security.txt
