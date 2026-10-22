@@ -12,7 +12,7 @@
 [![MkDocs](https://img.shields.io/badge/built%20with-MkDocs-526CFE?style=flat-square)](https://www.mkdocs.org/)
 [![Python](https://img.shields.io/badge/python-3.12+-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
 
-[**Live site**](https://ursoaia-edu.online) · [Courses](https://ursoaia-edu.online/courses/) · [Projects](https://ursoaia-edu.online/projects/) · [Issues](https://github.com/ursoaia-edu/ursoaia-edu.online/issues)
+[**Live site**](https://ursoaia-edu.online) · [Courses](https://ursoaia-edu.online/courses/) · [Projects](https://ursoaia-edu.online/projects/) · [Issues](https://github.com/nazdravan/ursoaia-edu.online/issues)
 
 </div>
 
@@ -156,7 +156,7 @@ git push origin feature/your-name
 # open a Pull Request on GitHub
 ```
 
-Or open an [issue](https://github.com/ursoaia-edu/ursoaia-edu.online/issues) with an idea.
+Or open an [issue](https://github.com/nazdravan/ursoaia-edu.online/issues) with an idea.
 
 ---
 
