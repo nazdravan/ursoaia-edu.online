@@ -2,7 +2,7 @@ site_name: Ursoaia Edu Online
 site_description: "Open-source electronics & IoT projects from the Ursoaia computer-science circle: Arduino, ESP32, LoPy, Raspberry Pi."
 site_author: "Ursoaia Edu Team"
 site_url: "https://ursoaia-edu.online"
-repo_url: "https://github.com/ursoaia-edu/ursoaia-edu.online.git"
+repo_url: "https://github.com/nazdravan/ursoaia-edu.online.git"
 repo_name: "ursoaia-edu/ursoaia-edu.online"
 
 theme:
