@@ -113,7 +113,9 @@ uv run build --strict
 ├── docs/                        # all site content
 │   ├── index.md / index.en.md   # homepage (RO / EN)
 │   ├── assets/
-│   │   ├── logo.png             # logo, favicons
+│   │   ├── logo.png             # logo (og:image, JSON-LD)
+│   │   ├── favicon.png          # favicon 86×86
+│   │   ├── apple-touch-icon.png # iconiță iOS 180×180, fără transparență
 │   │   └── images/              # lesson images, schematics, project photos
 │   ├── courses/                 # courses
 │   │   ├── index.md             # overview page (Web + Python cards)
