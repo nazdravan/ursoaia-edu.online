@@ -309,9 +309,9 @@
      so the H1 LCP element doesn't wait for the CSS-parse → @font-face cascade. #}
   <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ 'assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2'|url }}">
   <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ 'assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2'|url }}">
-  <link rel="stylesheet" href="{{ 'assets/tailwind.css'|url }}">
-  <link rel="stylesheet" href="{{ 'assets/fonts.css'|url }}">
-  <script src="{{ 'assets/lucide.min.js'|url }}"></script>
+  <link rel="stylesheet" href="{{ 'assets/tailwind.css'|versioned|url }}">
+  <link rel="stylesheet" href="{{ 'assets/fonts.css'|versioned|url }}">
+  <script src="{{ 'assets/lucide.min.js'|versioned|url }}"></script>
   <script>
     // Theme bootstrap — runs before <body> renders to avoid a flash.
     (function() {
@@ -579,7 +579,7 @@
       lucide.createIcons();
     });
   </script>
-  <script src="{{ 'assets/wiring-zoom.js'|url }}" defer></script>
+  <script src="{{ 'assets/wiring-zoom.js'|versioned|url }}" defer></script>
   {% block extra_scripts %}{% endblock %}
 </body>
 </html>

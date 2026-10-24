@@ -16,6 +16,7 @@ extra:
   gtm_id: "GTM-WD9LXKB7"
 
 hooks:
+  - hooks/asset_version.py
   - hooks/copy_well_known.py
   - hooks/lazy_images.py
   - hooks/wokwi.py
