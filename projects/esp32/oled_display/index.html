@@ -1,0 +1,887 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WD9LXKB7');</script>
+  <!-- End Google Tag Manager -->
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display OLED - Ursoaia Edu Online</title>
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <meta name="description" content="Afișează text și grafică pe un display OLED 128x64 I2C cu ESP32 și MicroPython — întâi doar cu modulele din firmware, apoi cu driverul ssd1306.">
+  <link rel="canonical" href="https://ursoaia-edu.online/projects/esp32/oled_display/">
+  <link rel="alternate" hreflang="ro" href="https://ursoaia-edu.online/projects/esp32/oled_display/">
+  <link rel="alternate" hreflang="en" href="https://ursoaia-edu.online/en/projects/esp32/oled_display/">
+  <link rel="alternate" hreflang="x-default" href="https://ursoaia-edu.online/projects/esp32/oled_display/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ursoaia Edu Online">
+  <meta property="og:title" content="Display OLED - Ursoaia Edu Online">
+  <meta property="og:description" content="Afișează text și grafică pe un display OLED 128x64 I2C cu ESP32 și MicroPython — întâi doar cu modulele din firmware, apoi cu driverul ssd1306.">
+  <meta property="og:url" content="https://ursoaia-edu.online/projects/esp32/oled_display/">
+  <meta property="og:locale" content="ro_RO">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:image" content="https://ursoaia-edu.online/assets/logo.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Display OLED - Ursoaia Edu Online">
+  <meta name="twitter:description" content="Afișează text și grafică pe un display OLED 128x64 I2C cu ESP32 și MicroPython — întâi doar cu modulele din firmware, apoi cu driverul ssd1306.">
+  <meta name="twitter:image" content="https://ursoaia-edu.online/assets/logo.png">
+
+  
+  
+  
+  
+  
+
+  <!-- JSON-LD: WebSite + Organization (+ Course/Article when applicable) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ursoaia-edu.online/#website",
+        "url": "https://ursoaia-edu.online/",
+        "name": "Ursoaia Edu Online",
+        "description": "Open-source electronics & IoT projects from the Ursoaia computer-science circle: Arduino, ESP32, LoPy, Raspberry Pi.",
+        "inLanguage": ["ro", "en"]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://ursoaia-edu.online/#org",
+        "name": "Ursoaia Edu Online",
+        "url": "https://ursoaia-edu.online/",
+        "logo": "https://ursoaia-edu.online/assets/logo.png",
+        "sameAs": ["https://github.com/ursoaia-edu"]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://ursoaia-edu.online/projects/esp32/oled_display/#article",
+        "headline": "Display OLED - Ursoaia Edu Online",
+        "description": "Afi\u0219eaz\u0103 text \u0219i grafic\u0103 pe un display OLED 128x64 I2C cu ESP32 \u0219i MicroPython \u2014 \u00eent\u00e2i doar cu modulele din firmware, apoi cu driverul ssd1306.",
+        "url": "https://ursoaia-edu.online/projects/esp32/oled_display/",
+        "inLanguage": "ro",
+        "image": "https://ursoaia-edu.online/assets/logo.png",
+        "author": { "@id": "https://ursoaia-edu.online/#org" },
+        "publisher": { "@id": "https://ursoaia-edu.online/#org" }
+      }
+    ]
+  }
+  </script>
+
+  
+  <!-- JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Acas\u0103",
+        "item": "https://ursoaia-edu.online/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Proiecte",
+        "item": "https://ursoaia-edu.online/projects/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "ESP32",
+        "item": "https://ursoaia-edu.online/projects/esp32/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Display OLED",
+        "item": "https://ursoaia-edu.online/projects/esp32/oled_display/"
+      }
+    ]
+  }
+  </script>
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../../assets/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../assets/apple-touch-icon.png">
+  
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../assets/fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2">
+  <link rel="stylesheet" href="../../../assets/tailwind.css">
+  <link rel="stylesheet" href="../../../assets/fonts.css">
+  <script src="../../../assets/lucide.min.js"></script>
+  <script>
+    // Theme bootstrap — runs before <body> renders to avoid a flash.
+    (function() {
+      try {
+        if (localStorage.getItem('theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  
+</head>
+<body class="dark:bg-[#0a0a0a] bg-[#fafafa] dark:text-white text-zinc-900 transition-colors duration-400">
+  
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WD9LXKB7"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="mt-4 rounded-full dark:glass-dark glass-light px-6 py-3 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="../../.." class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center pulse-glow">
+            <i data-lucide="cpu" class="w-5 h-5 text-white"></i>
+          </div>
+          <span class="font-semibold text-lg tracking-tight dark:text-white text-zinc-900">Ursoaia Edu Online</span>
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-1">
+          
+            <a href="../../.." class="nav-link  px-4 py-2 text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:text-white hover:text-zinc-900 transition-colors rounded-full">Acasă</a>
+          
+            <a href="../../../courses/" class="nav-link  px-4 py-2 text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:text-white hover:text-zinc-900 transition-colors rounded-full">Cursuri</a>
+          
+            <a href="../../" class="nav-link active px-4 py-2 text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:text-white hover:text-zinc-900 transition-colors rounded-full">Proiecte</a>
+          
+            <a href="../../../soft/" class="nav-link  px-4 py-2 text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:text-white hover:text-zinc-900 transition-colors rounded-full">Soft</a>
+          
+        </div>
+
+        <!-- Right side -->
+        <div class="flex items-center gap-3">
+          <!-- Language switcher -->
+          <div class="hidden sm:flex items-center text-[11px] font-mono font-semibold rounded-full dark:bg-zinc-800 bg-zinc-200 p-0.5" aria-label="Limbă">
+            <a href="../../../en/projects/esp32/oled_display/" hreflang="en" class="px-2.5 py-1 rounded-full transition-colors dark:text-zinc-400 text-zinc-600 dark:hover:text-white hover:text-zinc-900">EN</a>
+            <a href="./" hreflang="ro" class="px-2.5 py-1 rounded-full transition-colors bg-orange-700 text-white shadow-sm">RO</a>
+          </div>
+
+          <!-- Theme Toggle -->
+          <div class="theme-toggle dark:bg-zinc-800 bg-zinc-200" onclick="toggleTheme()" role="button" aria-label="Toggle theme">
+            <div class="knob dark:bg-zinc-700 bg-white shadow-md">
+              <i data-lucide="sun" class="w-3.5 h-3.5 dark:hidden text-amber-500"></i>
+              <i data-lucide="moon" class="w-3.5 h-3.5 hidden dark:block text-orange-400"></i>
+            </div>
+          </div>
+
+          <!-- GitHub link -->
+          
+          <a href="https://github.com/nazdravan/ursoaia-edu.online.git" target="_blank" rel="noopener" aria-label="GitHub" class="flex w-9 h-9 rounded-full dark:bg-zinc-800/60 bg-zinc-100 items-center justify-center dark:hover:bg-zinc-700 hover:bg-zinc-200 dark:hover:text-white hover:text-zinc-900 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 dark:text-zinc-400 text-zinc-500" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </a>
+          
+
+          <!-- Mobile hamburger -->
+          <button id="menuBtn" aria-label="Deschide meniul" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden w-9 h-9 rounded-full dark:bg-zinc-800/60 bg-zinc-100 flex items-center justify-center" onclick="toggleMobile()">
+            <i data-lucide="menu" class="w-4 h-4 dark:text-zinc-400 text-zinc-600" id="menuIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="mobile-menu md:hidden overflow-hidden max-h-0 opacity-0">
+        <div class="mt-2 rounded-2xl dark:glass-dark glass-light p-4 flex flex-col gap-1">
+          
+            <a href="../../.." onclick="closeMobile()" class="px-4 py-3 rounded-xl text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:bg-white/5 hover:bg-zinc-100 transition-colors">Acasă</a>
+          
+            <a href="../../../courses/" onclick="closeMobile()" class="px-4 py-3 rounded-xl text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:bg-white/5 hover:bg-zinc-100 transition-colors">Cursuri</a>
+          
+            <a href="../../" onclick="closeMobile()" class="px-4 py-3 rounded-xl text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:bg-white/5 hover:bg-zinc-100 transition-colors">Proiecte</a>
+          
+            <a href="../../../soft/" onclick="closeMobile()" class="px-4 py-3 rounded-xl text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:bg-white/5 hover:bg-zinc-100 transition-colors">Soft</a>
+          
+          <div class="mt-2 pt-3 border-t dark:border-white/[0.08] border-zinc-200 flex items-center gap-2 px-2">
+            <span class="text-[10px] uppercase tracking-wider dark:text-zinc-500 text-zinc-400 font-semibold flex-1">Limbă</span>
+            <a href="../../../en/projects/esp32/oled_display/" hreflang="en" class="px-3 py-1.5 rounded-full text-[11px] font-mono font-semibold transition-colors dark:bg-zinc-800 bg-zinc-200 dark:text-zinc-400 text-zinc-600">EN</a>
+            <a href="./" hreflang="ro" class="px-3 py-1.5 rounded-full text-[11px] font-mono font-semibold transition-colors bg-orange-700 text-white">RO</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  <!-- ==================== INNER PAGE ==================== -->
+  <main class="pt-28 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-6 text-xs flex flex-wrap items-center gap-1.5 dark:text-zinc-500 text-zinc-400 font-medium">
+        <a href="../../.." class="hover:text-orange-500 transition-colors flex items-center gap-1">
+          <i data-lucide="home" class="w-3.5 h-3.5"></i> Acasă
+        </a>
+        
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 dark:text-zinc-700 text-zinc-300"></i>
+          
+          
+            <a href="../../" class="dark:text-zinc-400 text-zinc-500 hover:text-orange-500 transition-colors">Proiecte</a>
+          
+        
+          <i data-lucide="chevron-right" class="w-3.5 h-3.5 dark:text-zinc-700 text-zinc-300"></i>
+          
+          
+            <a href="../" class="dark:text-zinc-400 text-zinc-500 hover:text-orange-500 transition-colors">ESP32</a>
+          
+        
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 dark:text-zinc-700 text-zinc-300"></i>
+        <span class="dark:text-white text-zinc-900 font-semibold">Display OLED</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px] gap-10 xl:gap-14">
+        <!-- Article -->
+        <article class="reveal min-w-0">
+          <header class="mb-10 pb-8 border-b dark:border-white/[0.08] border-zinc-200">
+            
+              <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 rounded-full bg-orange-500/10 text-orange-500 text-[10px] font-mono font-semibold uppercase tracking-wider">
+                <i data-lucide="circuit-board" class="w-3 h-3"></i> ESP32
+              </div>
+            
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight dark:text-white text-zinc-900 leading-tight">Display OLED</h1>
+            
+              <p class="mt-4 text-base sm:text-lg dark:text-zinc-400 text-zinc-500 leading-relaxed font-light">Afișează text și grafică pe un display OLED 128x64 I2C cu ESP32 și MicroPython — întâi doar cu modulele din firmware, apoi cu driverul ssd1306.</p>
+            
+            
+              <div class="flex flex-wrap gap-1.5 mt-5">
+                
+                  <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">OLED</span>
+                
+                  <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">SSD1306</span>
+                
+                  <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">I2C</span>
+                
+                  <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">Display</span>
+                
+                  <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">MicroPython</span>
+                
+              </div>
+            
+          </header>
+
+          <div class="prose dark:prose-invert prose-zinc max-w-none">
+            <h1 id="display-oled-128x64-i2c">Display OLED 128x64 I2C<a class="headerlink" href="#display-oled-128x64-i2c" title="Link to this section">&para;</a></h1>
+<p>Conectăm un display OLED de 0.96" (controler SSD1306) la un ESP32 prin I2C și îl programăm în MicroPython, în două feluri. În <strong>varianta 1</strong> folosim doar modulele care vin deja în firmware — <code>machine.I2C</code> și <code>framebuf</code> — și trimitem singuri comenzile către display. În <strong>varianta 2</strong> instalăm driverul <strong>ssd1306</strong> din micropython-lib, care face același lucru într-un singur rând.</p>
+<div class="admonition tip">
+<p class="admonition-title">Ai un Arduino?</p>
+<p>Același proiect, în C++: <a href="../../arduino/oled_display/">Display OLED pe Arduino</a>.</p>
+</div>
+<h2 id="descriere">Descriere<a class="headerlink" href="#descriere" title="Link to this section">&para;</a></h2>
+<p>Ecranul are 128 × 64 = 8192 de pixeli. Fiecare pixel e un bit, deci toată imaginea ocupă <strong>1024 de octeți</strong>. Cele 64 de rânduri sunt împărțite în <strong>8 pagini</strong> a câte 8 rânduri; un octet trimis la display aprinde o <strong>coloană verticală de 8 pixeli</strong> în pagina curentă (bitul 0 sus, bitul 7 jos).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>          coloana 0   1   2  ...  127
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>         ┌───┬───┬───┬─────┬───┐
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pagina 0 │   │   │   │     │   │  rândurile 0–7
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>pagina 1 │   │   │   │     │   │  rândurile 8–15
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  ...    │   │   │   │     │   │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>pagina 7 │   │   │   │     │   │  rândurile 56–63
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>         └───┴───┴───┴─────┴───┘
+</span></code></pre></div>
+<p>Fiecare transmisie I2C începe cu un <strong>octet de control</strong>: <code>0x00</code> — „urmează o comandă”, <code>0x40</code> — „urmează date (pixeli)”. Adresa display-ului este de obicei <strong><code>0x3C</code></strong>.</p>
+<p>Spre deosebire de Arduino Nano (2 KB RAM), ESP32 are 520 KB de RAM, deci putem ține liniștiți o copie a întregului ecran în memorie și s-o trimitem dintr-o dată.</p>
+<h2 id="materiale">Materiale<a class="headerlink" href="#materiale" title="Link to this section">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Componentă</th>
+<th>Cantitate</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESP32 DevKit V1</td>
+<td>1</td>
+<td>Cu firmware MicroPython</td>
+</tr>
+<tr>
+<td>Display OLED 0.96" 128x64 I2C</td>
+<td>1</td>
+<td>Controler SSD1306, 4 pini</td>
+</tr>
+<tr>
+<td>Fire jumper</td>
+<td>4</td>
+<td>M-F, sau M-M cu breadboard</td>
+</tr>
+</tbody>
+</table>
+<h2 id="conectare">Conectare<a class="headerlink" href="#conectare" title="Link to this section">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Pin OLED  →  ESP32
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>--------     -----
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>GND       →  GND
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>VCC       →  3V3
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>SCL       →  GPIO 22
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>SDA       →  GPIO 21
+</span></code></pre></div>
+<p>GPIO 22 (SCL) și GPIO 21 (SDA) sunt pinii I2C obișnuiți ai lui ESP32. Modulul OLED merge și la 3,3 V, și la 5 V; alimentându-l de la 3V3, nivelurile logice pe SDA/SCL rămân sigure pentru ESP32.</p>
+<h3 id="schema-de-conectare">Schema de conectare<a class="headerlink" href="#schema-de-conectare" title="Link to this section">&para;</a></h3>
+<figure class="wiring"><img loading="lazy" decoding="async" src="/assets/images/wiring/esp32-oled.svg" alt="Schema de conectare: Display OLED" width="264" height="334"><figcaption>Schema de conectare</figcaption></figure>
+
+<h2 id="varianta-1-doar-modulele-din-firmware">Varianta 1: doar modulele din firmware<a class="headerlink" href="#varianta-1-doar-modulele-din-firmware" title="Link to this section">&para;</a></h2>
+<p><code>machine.I2C</code> vorbește cu display-ul, iar <code>framebuf</code> desenează în memorie text, linii și dreptunghiuri. Formatul <code>framebuf.MONO_VLSB</code> înseamnă „un octet = 8 pixeli verticali, bitul 0 sus” — exact cum își organizează SSD1306 memoria. De aceea bufferul se poate trimite la display așa cum e, fără nicio conversie.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Display OLED 128x64 I2C (SSD1306) pe ESP32 — doar machine.I2C și framebuf</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Conectare: VCC -&gt; 3V3, GND -&gt; GND, SCL -&gt; GPIO 22, SDA -&gt; GPIO 21</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">machine</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">I2C</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">framebuf</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">ADDR</span> <span class="o">=</span> <span class="mh">0x3C</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">INIT</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="mh">0xAE</span><span class="p">,</span>        <span class="c1"># display OFF</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="mh">0xD5</span><span class="p">,</span> <span class="mh">0x80</span><span class="p">,</span>  <span class="c1"># frecvența ceasului</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="mh">0xA8</span><span class="p">,</span> <span class="mh">0x3F</span><span class="p">,</span>  <span class="c1"># multiplex = 64 rânduri</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="mh">0xD3</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>  <span class="c1"># fără offset</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="mh">0x40</span><span class="p">,</span>        <span class="c1"># linia de start 0</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="mh">0x8D</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">,</span>  <span class="c1"># pornește charge pump (obligatoriu!)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="mh">0x20</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>  <span class="c1"># adresare orizontală</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="mh">0xA1</span><span class="p">,</span> <span class="mh">0xC8</span><span class="p">,</span>  <span class="c1"># orientare (oglindire X/Y)</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="mh">0xDA</span><span class="p">,</span> <span class="mh">0x12</span><span class="p">,</span>  <span class="c1"># configurare pini COM</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="mh">0x81</span><span class="p">,</span> <span class="mh">0xCF</span><span class="p">,</span>  <span class="c1"># contrast</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="mh">0xD9</span><span class="p">,</span> <span class="mh">0xF1</span><span class="p">,</span>  <span class="c1"># pre-charge</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="mh">0xDB</span><span class="p">,</span> <span class="mh">0x40</span><span class="p">,</span>  <span class="c1"># VCOMH</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    <span class="mh">0xA4</span><span class="p">,</span>        <span class="c1"># afișează conținutul RAM</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="mh">0xA6</span><span class="p">,</span>        <span class="c1"># normal (nu inversat)</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>    <span class="mh">0xAF</span><span class="p">,</span>        <span class="c1"># display ON</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="p">)</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="n">i2c</span> <span class="o">=</span> <span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scl</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">22</span><span class="p">),</span> <span class="n">sda</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">21</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="mi">400000</span><span class="p">)</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dispozitive I2C:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">hex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">i2c</span><span class="o">.</span><span class="n">scan</span><span class="p">()])</span>  <span class="c1"># trebuie să apară 0x3c</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="k">def</span><span class="w"> </span><span class="nf">cmd</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>    <span class="n">i2c</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="n">ADDR</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">((</span><span class="mh">0x00</span><span class="p">,</span> <span class="n">c</span><span class="p">)))</span>  <span class="c1"># 0x00 = „urmează o comandă”</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">(</span><span class="mh">0x21</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mh">0x22</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>  <span class="c1"># toate coloanele, toate paginile</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>        <span class="n">cmd</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>    <span class="n">i2c</span><span class="o">.</span><span class="n">writevto</span><span class="p">(</span><span class="n">ADDR</span><span class="p">,</span> <span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x40</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">buf</span><span class="p">))</span>    <span class="c1"># 0x40 = „urmează date”, apoi 1024 octeți</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">INIT</span><span class="p">:</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>    <span class="n">cmd</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a><span class="n">buf</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">128</span> <span class="o">*</span> <span class="mi">64</span> <span class="o">//</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># 1024 octeți = tot ecranul</span>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a><span class="n">fb</span> <span class="o">=</span> <span class="n">framebuf</span><span class="o">.</span><span class="n">FrameBuffer</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">framebuf</span><span class="o">.</span><span class="n">MONO_VLSB</span><span class="p">)</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>
+</span><span id="__span-2-46"><a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a><span class="n">fb</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-2-47"><a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="n">fb</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Salut!&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-2-48"><a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a><span class="n">fb</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Cerc de&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span><span id="__span-2-49"><a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a><span class="n">fb</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;informatica&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">26</span><span class="p">)</span>
+</span><span id="__span-2-50"><a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a><span class="n">fb</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span><span id="__span-2-51"><a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a><span class="n">fb</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;ESP32 2025&quot;</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span><span id="__span-2-52"><a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a><span class="n">show</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Fontul din <code>framebuf</code> are 8×8 pixeli, deci pe un rând încap <strong>16 caractere</strong>, iar pe ecran — <strong>8 rânduri</strong>. Fiecare modificare apare pe ecran abia după <code>show(buf)</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">De ce <code>writevto</code>?</p>
+<p><code>writevto</code> trimite mai multe bucăți una după alta, într-o singură transmisie I2C: întâi octetul de control <code>0x40</code>, apoi bufferul. Așa nu mai e nevoie să lipim cei 1024 de octeți la <code>b"\x40"</code> și să creăm o copie nouă la fiecare cadru.</p>
+</div>
+<h2 id="varianta-2-driverul-ssd1306">Varianta 2: driverul ssd1306<a class="headerlink" href="#varianta-2-driverul-ssd1306" title="Link to this section">&para;</a></h2>
+<p>Driverul <code>ssd1306</code> din micropython-lib conține exact codul din varianta 1, împachetat într-o clasă. Clasa moștenește <code>framebuf.FrameBuffer</code>, deci are aceleași funcții de desenare, plus <code>show()</code>.</p>
+<h3 id="instalarea-driverului">Instalarea driverului<a class="headerlink" href="#instalarea-driverului" title="Link to this section">&para;</a></h3>
+<ul>
+<li><strong>Thonny:</strong> <strong>Tools → Manage packages…</strong>, caută <code>ssd1306</code>, apasă <strong>Install</strong>.</li>
+<li><strong>mpremote</strong> (placa conectată prin USB):</li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mpremote<span class="w"> </span>mip<span class="w"> </span>install<span class="w"> </span>ssd1306
+</span></code></pre></div>
+<h3 id="cod">Cod<a class="headerlink" href="#cod" title="Link to this section">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Display OLED 128x64 I2C (SSD1306) pe ESP32 cu driverul ssd1306 din micropython-lib</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># Conectare: VCC -&gt; 3V3, GND -&gt; GND, SCL -&gt; GPIO 22, SDA -&gt; GPIO 21</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Instalare driver: mpremote mip install ssd1306  (sau Thonny -&gt; Manage packages)</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">machine</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">I2C</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">sleep</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">ssd1306</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">i2c</span> <span class="o">=</span> <span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scl</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">22</span><span class="p">),</span> <span class="n">sda</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">21</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="mi">400000</span><span class="p">)</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dispozitive I2C:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nb">hex</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">i2c</span><span class="o">.</span><span class="n">scan</span><span class="p">()])</span>  <span class="c1"># trebuie să apară 0x3c</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">oled</span> <span class="o">=</span> <span class="n">ssd1306</span><span class="o">.</span><span class="n">SSD1306_I2C</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="n">i2c</span><span class="p">)</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="k">def</span><span class="w"> </span><span class="nf">demo_text</span><span class="p">():</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Cerc de&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;informatica&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Salut, ESP32!&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;2025&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="k">def</span><span class="w"> </span><span class="nf">demo_shapes</span><span class="p">():</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>            <span class="c1"># dreptunghi</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">fill_rect</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>      <span class="c1"># dreptunghi plin</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">ellipse</span><span class="p">(</span><span class="mi">108</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>      <span class="c1"># cerc (MicroPython 1.20+)</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">127</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>          <span class="c1"># linie</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>    <span class="n">oled</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="k">def</span><span class="w"> </span><span class="nf">demo_counter</span><span class="p">():</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">101</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>        <span class="n">oled</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>        <span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;Incarcare...&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>        <span class="n">oled</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:3d}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>        <span class="n">oled</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>                  <span class="c1"># contur bară</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>        <span class="n">oled</span><span class="o">.</span><span class="n">fill_rect</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">124</span> <span class="o">//</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>   <span class="c1"># bara</span>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>        <span class="n">oled</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40" href="#__codelineno-4-40"></a>        <span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41" href="#__codelineno-4-41"></a>
+</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42" href="#__codelineno-4-42"></a>
+</span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43" href="#__codelineno-4-43"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44" href="#__codelineno-4-44"></a>    <span class="n">demo_text</span><span class="p">()</span>
+</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45" href="#__codelineno-4-45"></a>    <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46" href="#__codelineno-4-46"></a>    <span class="n">demo_shapes</span><span class="p">()</span>
+</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47" href="#__codelineno-4-47"></a>    <span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48" href="#__codelineno-4-48"></a>    <span class="n">demo_counter</span><span class="p">()</span>
+</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49" href="#__codelineno-4-49"></a>    <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="functiile-de-baza">Funcțiile de bază<a class="headerlink" href="#functiile-de-baza" title="Link to this section">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Funcție</th>
+<th>Ce face</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fill(c)</code></td>
+<td>umple tot ecranul (<code>0</code> = negru, <code>1</code> = alb)</td>
+</tr>
+<tr>
+<td><code>text(s, x, y, c=1)</code></td>
+<td>text cu font 8×8, de la pixelul <code>(x, y)</code></td>
+</tr>
+<tr>
+<td><code>pixel(x, y, c)</code></td>
+<td>un pixel</td>
+</tr>
+<tr>
+<td><code>line(x0, y0, x1, y1, c)</code></td>
+<td>linie</td>
+</tr>
+<tr>
+<td><code>rect</code> / <code>fill_rect(x, y, w, h, c)</code></td>
+<td>dreptunghi / dreptunghi plin</td>
+</tr>
+<tr>
+<td><code>ellipse(x, y, rx, ry, c, f)</code></td>
+<td>elipsă sau cerc; <code>f=True</code> = plin (MicroPython 1.20+)</td>
+</tr>
+<tr>
+<td><code>scroll(dx, dy)</code></td>
+<td>mută tot conținutul cu <code>dx</code>, <code>dy</code> pixeli</td>
+</tr>
+<tr>
+<td><code>invert(1)</code></td>
+<td>inversează culorile pe ecran</td>
+</tr>
+<tr>
+<td><code>contrast(0..255)</code></td>
+<td>luminozitatea</td>
+</tr>
+<tr>
+<td><code>show()</code></td>
+<td>trimite bufferul pe ecran</td>
+</tr>
+</tbody>
+</table>
+<h2 id="probleme-frecvente">Probleme frecvente<a class="headerlink" href="#probleme-frecvente" title="Link to this section">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Simptom</th>
+<th>Cauza / soluția</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>i2c.scan()</code> întoarce <code>[]</code></td>
+<td>Verifică firele; SDA și SCL inversate e greșeala cea mai des întâlnită</td>
+</tr>
+<tr>
+<td><code>OSError: [Errno 19] ENODEV</code></td>
+<td>Display-ul nu răspunde la <code>0x3C</code> — vezi ce adresă arată <code>i2c.scan()</code> (poate <code>0x3d</code>) și folosește-o</td>
+</tr>
+<tr>
+<td><code>ImportError: no module named 'ssd1306'</code></td>
+<td>Driverul nu e instalat pe placă (vezi „Instalarea driverului”)</td>
+</tr>
+<tr>
+<td><code>AttributeError: ... 'ellipse'</code></td>
+<td>Firmware MicroPython mai vechi de 1.20 — actualizează-l sau folosește doar <code>rect</code>/<code>line</code></td>
+</tr>
+<tr>
+<td>Pixeli aleatori, imagine deplasată cu 2 px</td>
+<td>Display-ul are controler <strong>SH1106</strong> (de obicei cele de 1.3"), nu SSD1306 — e nevoie de un driver <code>sh1106</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercitii">Exerciții<a class="headerlink" href="#exercitii" title="Link to this section">&para;</a></h2>
+<ol>
+<li>Afișează temperatura și umiditatea de la <a href="../temperature/">senzorul DHT22</a> în loc de text fix.</li>
+<li>Fă un ceas: afișează <code>time.ticks_ms() // 1000</code> (secundele de la pornire), actualizat în fiecare secundă.</li>
+<li>O minge care sare de pereții ecranului (variabile <code>x</code>, <code>y</code>, <code>dx</code>, <code>dy</code>).</li>
+<li>Desenează graficul funcției <code>math.sin</code> pe toată lățimea ecranului.</li>
+<li>Folosește <code>oled.scroll(0, -8)</code> ca să faci un „terminal” în care fiecare rând nou împinge textul în sus.</li>
+</ol>
+<hr />
+<h2 id="referinte">Referințe<a class="headerlink" href="#referinte" title="Link to this section">&para;</a></h2>
+<ul>
+<li><a href="https://randomnerdtutorials.com/micropython-oled-display-esp32-esp8266/">Random Nerd Tutorials — MicroPython: OLED Display with ESP32 and ESP8266</a></li>
+<li><a href="https://docs.micropython.org/en/latest/library/framebuf.html">Documentația MicroPython — <code>framebuf</code></a></li>
+<li><a href="https://github.com/micropython/micropython-lib/tree/master/micropython/drivers/display/ssd1306">Driverul ssd1306 în micropython-lib</a></li>
+<li><a href="https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf">Fișa tehnică SSD1306 (PDF)</a></li>
+</ul>
+          </div>
+
+          <!-- Prev / Next nav -->
+          
+          <nav class="mt-16 pt-8 border-t dark:border-white/[0.08] border-zinc-200 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+              <a href="../esp_now/" class="group rounded-2xl dark:bg-zinc-900/60 bg-white border dark:border-white/[0.08] border-zinc-200 p-5 hover:border-orange-500/40 transition-all flex flex-col gap-1">
+                <span class="text-[10px] uppercase tracking-wider dark:text-zinc-500 text-zinc-400 font-semibold flex items-center gap-1.5">
+                  <i data-lucide="arrow-left" class="w-3 h-3 group-hover:-translate-x-0.5 transition-transform"></i> Anterior
+                </span>
+                <span class="text-sm font-medium dark:text-white text-zinc-900 group-hover:text-orange-500 transition-colors">Mesagerie ESP-NOW</span>
+              </a>
+            
+            
+              <a href="../../lopy/" class="group rounded-2xl dark:bg-zinc-900/60 bg-white border dark:border-white/[0.08] border-zinc-200 p-5 hover:border-orange-500/40 transition-all flex flex-col gap-1 text-right sm:items-end">
+                <span class="text-[10px] uppercase tracking-wider dark:text-zinc-500 text-zinc-400 font-semibold flex items-center gap-1.5">
+                  Următor <i data-lucide="arrow-right" class="w-3 h-3 group-hover:translate-x-0.5 transition-transform"></i>
+                </span>
+                <span class="text-sm font-medium dark:text-white text-zinc-900 group-hover:text-orange-500 transition-colors">Prezentare generală</span>
+              </a>
+            
+          </nav>
+          
+        </article>
+
+        <!-- TOC sidebar (only when toc has items) -->
+        
+        <aside class="hidden lg:block">
+          <div class="sticky top-28">
+            <div class="text-[10px] uppercase tracking-[0.15em] font-semibold dark:text-zinc-500 text-zinc-400 mb-4 flex items-center gap-2">
+              <i data-lucide="list" class="w-3.5 h-3.5"></i> În această pagină
+            </div>
+            <ul class="space-y-1.5 text-sm border-l dark:border-white/[0.08] border-zinc-200">
+              
+                <li>
+                  <a href="#display-oled-128x64-i2c" class="toc-link block pl-4 -ml-px border-l border-transparent dark:text-zinc-400 text-zinc-500 hover:text-orange-500 hover:border-orange-500 py-1 transition-colors">Display OLED 128x64 I2C</a>
+                  
+                  <ul class="space-y-1 mt-1">
+                    
+                      <li>
+                        <a href="#descriere" class="toc-link block pl-7 -ml-px border-l border-transparent dark:text-zinc-500 text-zinc-400 hover:text-orange-500 hover:border-orange-500 py-1 text-xs transition-colors">Descriere</a>
+                      </li>
+                    
+                      <li>
+                        <a href="#materiale" class="toc-link block pl-7 -ml-px border-l border-transparent dark:text-zinc-500 text-zinc-400 hover:text-orange-500 hover:border-orange-500 py-1 text-xs transition-colors">Materiale</a>
+                      </li>
+                    
+                      <li>
+                        <a href="#conectare" class="toc-link block pl-7 -ml-px border-l border-transparent dark:text-zinc-500 text-zinc-400 hover:text-orange-500 hover:border-orange-500 py-1 text-xs transition-colors">Conectare</a>
+                      </li>
+                    
+                      <li>
+                        <a href="#varianta-1-doar-modulele-din-firmware" class="toc-link block pl-7 -ml-px border-l border-transparent dark:text-zinc-500 text-zinc-400 hover:text-orange-500 hover:border-orange-500 py-1 text-xs transition-colors">Varianta 1: doar modulele din firmware</a>
+                      </li>
+                    
+                      <li>
+                        <a href="#varianta-2-driverul-ssd1306" class="toc-link block pl-7 -ml-px border-l border-transparent dark:text-zinc-500 text-zinc-400 hover:text-orange-500 hover:border-orange-500 py-1 text-xs transition-colors">Varianta 2: driverul ssd1306</a>
+                      </li>
+                    
+                      <li>
+                        <a href="#probleme-frecvente" class="toc-link block pl-7 -ml-px border-l border-transparent dark:text-zinc-500 text-zinc-400 hover:text-orange-500 hover:border-orange-500 py-1 text-xs transition-colors">Probleme frecvente</a>
+                      </li>
+                    
+                      <li>
+                        <a href="#exercitii" class="toc-link block pl-7 -ml-px border-l border-transparent dark:text-zinc-500 text-zinc-400 hover:text-orange-500 hover:border-orange-500 py-1 text-xs transition-colors">Exerciții</a>
+                      </li>
+                    
+                      <li>
+                        <a href="#referinte" class="toc-link block pl-7 -ml-px border-l border-transparent dark:text-zinc-500 text-zinc-400 hover:text-orange-500 hover:border-orange-500 py-1 text-xs transition-colors">Referințe</a>
+                      </li>
+                    
+                  </ul>
+                  
+                </li>
+              
+            </ul>
+          </div>
+        </aside>
+        
+      </div>
+    </div>
+  </main>
+
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="dark:border-t border-zinc-800 border-zinc-200 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center">
+            <i data-lucide="cpu" class="w-4 h-4 text-white"></i>
+          </div>
+          <span class="font-medium dark:text-white text-zinc-900">Ursoaia Edu Online</span>
+        </div>
+
+        <!-- Links -->
+        <div class="flex items-center gap-6 text-sm dark:text-zinc-500 text-zinc-600">
+          
+            <a href="../../.." class="hover:text-orange-500 transition-colors">Acasă</a>
+          
+            <a href="../../../courses/" class="hover:text-orange-500 transition-colors">Cursuri</a>
+          
+            <a href="../../" class="hover:text-orange-500 transition-colors">Proiecte</a>
+          
+            <a href="../../../soft/" class="hover:text-orange-500 transition-colors">Soft</a>
+          
+          
+            <a href="https://github.com/nazdravan/ursoaia-edu.online.git" target="_blank" rel="noopener" aria-label="GitHub" class="inline-flex items-center gap-1.5 hover:text-orange-500 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            </a>
+          
+        </div>
+
+        <!-- Copyright -->
+        <p class="text-xs dark:text-zinc-600 text-zinc-600">
+          © 2025 Ursoaia Edu Online · Open-source, construit cu fum de lipire.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== TOAST ==================== -->
+  <div id="toast" class="toast">
+    <div class="dark:glass-dark glass-light rounded-xl px-5 py-3.5 flex items-center gap-3 shadow-2xl">
+      <div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0">
+        <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
+      </div>
+      <div>
+        <p class="text-sm font-medium dark:text-white text-zinc-900" id="toastTitle">Subscribed!</p>
+        <p class="text-xs dark:text-zinc-400 text-zinc-500" id="toastMsg">You'll hear from me soon.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // ========== THEME TOGGLE ==========
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+      // Re-render icons for theme toggle visibility
+      lucide.createIcons();
+    }
+
+    // Load saved theme (default = light)
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+
+    // ========== MOBILE MENU ==========
+    let mobileOpen = false;
+    function toggleMobile() {
+      mobileOpen = !mobileOpen;
+      const menu = document.getElementById('mobileMenu');
+      const icon = document.getElementById('menuIcon');
+      if (mobileOpen) {
+        menu.style.maxHeight = menu.scrollHeight + 'px';
+        menu.style.opacity = '1';
+        icon.setAttribute('data-lucide', 'x');
+      } else {
+        menu.style.maxHeight = '0px';
+        menu.style.opacity = '0';
+        icon.setAttribute('data-lucide', 'menu');
+      }
+      lucide.createIcons();
+    }
+    function closeMobile() {
+      if (mobileOpen) toggleMobile();
+    }
+
+    // ========== NEWSLETTER ==========
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      if (email) {
+        document.getElementById('emailInput').value = '';
+        showToast('Subscribed!', `${email} is now on the list.`);
+      }
+    }
+
+    function showToast(title, msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastTitle').textContent = title;
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    // ========== CODE COPY BUTTONS ==========
+    (function() {
+      const COPY_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+      const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      function getCodeText(highlight) {
+        // pymdownx layout: with linenos uses <table class="highlighttable">; without, plain <pre><code>.
+        const codeCell = highlight.querySelector('td.code code') || highlight.querySelector('pre code') || highlight.querySelector('pre');
+        if (!codeCell) return '';
+        // Strip trailing newline that pygments often adds.
+        return codeCell.innerText.replace(/\n$/, '');
+      }
+
+      function addCopyButton(highlight) {
+        if (highlight.querySelector(':scope > .code-copy-btn')) return;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'code-copy-btn';
+        btn.setAttribute('aria-label', 'Copy code');
+        btn.innerHTML = COPY_SVG + '<span>Copy</span>';
+        btn.addEventListener('click', async () => {
+          const text = getCodeText(highlight);
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch (e) {
+            // Fallback for older browsers / non-HTTPS contexts.
+            const ta = document.createElement('textarea');
+            ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); } catch (_) {}
+            document.body.removeChild(ta);
+          }
+          btn.classList.add('copied');
+          btn.innerHTML = CHECK_SVG + '<span>Copied</span>';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = COPY_SVG + '<span>Copy</span>';
+          }, 1600);
+        });
+        highlight.appendChild(btn);
+      }
+
+      document.querySelectorAll('article .highlight').forEach(addCopyButton);
+    })();
+
+    // ========== SCROLL REVEAL ==========
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ========== NAVBAR BACKGROUND ON SCROLL ==========
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('backdrop-blur-xl');
+      } else {
+        navbar.classList.remove('backdrop-blur-xl');
+      }
+    });
+
+    // Re-initialize Lucide icons after content might have changed
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+  <script src="../../../assets/wiring-zoom.js" defer></script>
+  
+
+<script>
+    // ========== TOC SCROLL SPY ==========
+    (function() {
+      const tocLinks = document.querySelectorAll('.toc-link');
+      if (!tocLinks.length) return;
+      const headings = Array.from(document.querySelectorAll('article h2[id], article h3[id]'));
+      if (!headings.length) return;
+
+      function setActive() {
+        const scrollY = window.scrollY + 140;
+        let active = headings[0];
+        for (const h of headings) {
+          if (h.offsetTop <= scrollY) active = h;
+        }
+        tocLinks.forEach(l => {
+          const isActive = l.getAttribute('href') === '#' + active.id;
+          l.classList.toggle('text-orange-500', isActive);
+          l.classList.toggle('border-orange-500', isActive);
+          l.classList.toggle('font-medium', isActive);
+        });
+      }
+      setActive();
+      window.addEventListener('scroll', setActive, { passive: true });
+    })();
+</script>
+
+
+</body>
+</html>

@@ -147,6 +147,8 @@
           
             <a href="projects/" class="nav-link  px-4 py-2 text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:text-white hover:text-zinc-900 transition-colors rounded-full">Projects</a>
           
+            <a href="soft/" class="nav-link  px-4 py-2 text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:text-white hover:text-zinc-900 transition-colors rounded-full">Software</a>
+          
         </div>
 
         <!-- Right side -->
@@ -188,6 +190,8 @@
             <a href="courses/" onclick="closeMobile()" class="px-4 py-3 rounded-xl text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:bg-white/5 hover:bg-zinc-100 transition-colors">Courses</a>
           
             <a href="projects/" onclick="closeMobile()" class="px-4 py-3 rounded-xl text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:bg-white/5 hover:bg-zinc-100 transition-colors">Projects</a>
+          
+            <a href="soft/" onclick="closeMobile()" class="px-4 py-3 rounded-xl text-sm font-medium dark:text-zinc-300 text-zinc-600 dark:hover:bg-white/5 hover:bg-zinc-100 transition-colors">Software</a>
           
           <div class="mt-2 pt-3 border-t dark:border-white/[0.08] border-zinc-200 flex items-center gap-2 px-2">
             <span class="text-[10px] uppercase tracking-wider dark:text-zinc-500 text-zinc-400 font-semibold flex-1">Language</span>
@@ -258,7 +262,7 @@ guides, code, and schematics for Arduino, ESP32, LoPy, and Raspberry Pi.</p>
       <!-- Stats row (computed from nav) -->
       <div class="animate-in-4 flex items-center justify-center gap-8 sm:gap-14">
         <div class="text-center">
-          <div class="text-2xl sm:text-3xl font-semibold dark:text-white text-zinc-900 tabular-nums">44</div>
+          <div class="text-2xl sm:text-3xl font-semibold dark:text-white text-zinc-900 tabular-nums">46</div>
           <div class="text-xs dark:text-zinc-500 text-zinc-400 mt-1 uppercase tracking-wider font-medium">Projects</div>
         </div>
         <div class="w-px h-10 dark:bg-zinc-800 bg-zinc-200"></div>
@@ -394,6 +398,48 @@ guides, code, and schematics for Arduino, ESP32, LoPy, and Raspberry Pi.</p>
         <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">Multiplexing</span>
       
         <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">Arduino Uno</span>
+      
+    </div>
+    
+    <div class="flex items-center justify-end mt-auto">
+      <span class="inline-flex items-center gap-1.5 text-sm font-medium text-orange-500 group-hover:text-orange-400 transition-colors">
+        View Details <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+      </span>
+    </div>
+  </div>
+</a>
+<a href="projects/arduino/oled_display/" class="reveal project-card  rounded-2xl dark:bg-zinc-900/60 bg-white border dark:border-white/[0.08] border-zinc-200 overflow-hidden flex flex-col group" data-tags="arduino">
+  <div class="relative overflow-hidden aspect-[16/10]">
+    
+      <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-amber-500/10 to-transparent"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <i data-lucide="circuit-board" class="w-14 h-14 text-orange-500/70"></i>
+      </div>
+    
+    <div class="absolute top-4 left-4 flex gap-2">
+      
+      
+        <span class="px-2.5 py-1 rounded-md dark:bg-black/50 bg-white/85 backdrop-blur-sm text-[10px] font-mono font-medium dark:text-white text-zinc-700">Arduino</span>
+      
+    </div>
+  </div>
+  <div class="p-5 sm:p-6 flex flex-col flex-1">
+    <h3 class="text-lg font-medium tracking-tight dark:text-white text-zinc-900 mb-2">OLED Display</h3>
+    
+    <p class="dark:text-zinc-400 text-zinc-500 text-sm leading-relaxed mb-4 font-light flex-1">Show text and graphics on a 128x64 I2C OLED display with Arduino — first with no library at all, then with Adafruit SSD1306.</p>
+    
+    
+    <div class="flex flex-wrap gap-1.5 mb-4">
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">OLED</span>
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">SSD1306</span>
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">I2C</span>
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">Display</span>
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">Arduino Nano</span>
       
     </div>
     
@@ -1862,6 +1908,48 @@ guides, code, and schematics for Arduino, ESP32, LoPy, and Raspberry Pi.</p>
     </div>
   </div>
 </a>
+<a href="projects/esp32/oled_display/" class="reveal project-card  rounded-2xl dark:bg-zinc-900/60 bg-white border dark:border-white/[0.08] border-zinc-200 overflow-hidden flex flex-col group" data-tags="esp32">
+  <div class="relative overflow-hidden aspect-[16/10]">
+    
+      <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-amber-500/10 to-transparent"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <i data-lucide="circuit-board" class="w-14 h-14 text-orange-500/70"></i>
+      </div>
+    
+    <div class="absolute top-4 left-4 flex gap-2">
+      
+      
+        <span class="px-2.5 py-1 rounded-md dark:bg-black/50 bg-white/85 backdrop-blur-sm text-[10px] font-mono font-medium dark:text-white text-zinc-700">ESP32</span>
+      
+    </div>
+  </div>
+  <div class="p-5 sm:p-6 flex flex-col flex-1">
+    <h3 class="text-lg font-medium tracking-tight dark:text-white text-zinc-900 mb-2">OLED Display</h3>
+    
+    <p class="dark:text-zinc-400 text-zinc-500 text-sm leading-relaxed mb-4 font-light flex-1">Show text and graphics on a 128x64 I2C OLED display with ESP32 and MicroPython — first using only built-in firmware modules, then with the ssd1306 driver.</p>
+    
+    
+    <div class="flex flex-wrap gap-1.5 mb-4">
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">OLED</span>
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">SSD1306</span>
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">I2C</span>
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">Display</span>
+      
+        <span class="px-2 py-0.5 rounded dark:bg-white/5 bg-zinc-100 dark:text-zinc-300 text-zinc-500 text-[10px] font-mono">MicroPython</span>
+      
+    </div>
+    
+    <div class="flex items-center justify-end mt-auto">
+      <span class="inline-flex items-center gap-1.5 text-sm font-medium text-orange-500 group-hover:text-orange-400 transition-colors">
+        View Details <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+      </span>
+    </div>
+  </div>
+</a>
 <a href="projects/lopy/lorawan_node/" class="reveal project-card  rounded-2xl dark:bg-zinc-900/60 bg-white border dark:border-white/[0.08] border-zinc-200 overflow-hidden flex flex-col group" data-tags="lopy">
   <div class="relative overflow-hidden aspect-[16/10]">
     
@@ -2123,6 +2211,8 @@ guides, code, and schematics for Arduino, ESP32, LoPy, and Raspberry Pi.</p>
             <a href="courses/" class="hover:text-orange-500 transition-colors">Courses</a>
           
             <a href="projects/" class="hover:text-orange-500 transition-colors">Projects</a>
+          
+            <a href="soft/" class="hover:text-orange-500 transition-colors">Software</a>
           
           
             <a href="https://github.com/nazdravan/ursoaia-edu.online.git" target="_blank" rel="noopener" aria-label="GitHub" class="inline-flex items-center gap-1.5 hover:text-orange-500 transition-colors">
