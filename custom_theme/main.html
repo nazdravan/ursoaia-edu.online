@@ -81,9 +81,9 @@
           <i data-lucide="code" class="w-4 h-4"></i> {{ tt.source_code }}
         </a>
       {% endif %}
-      <span class="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-orange-500 group-hover:text-orange-400 transition-colors">
+      <a href="{{ p.url|url }}" class="relative z-10 ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-orange-500 hover:text-orange-400 transition-colors">
         {{ tt.view_details }} <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-      </span>
+      </a>
     </div>
   </div>
 </article>
