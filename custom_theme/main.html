@@ -48,6 +48,47 @@
 </a>
 {%- endmacro %}
 
+{# Card for a program in the Software section. Frontmatter: image (screenshot), logo, summary, website, repo. #}
+{% macro render_software_card(p) -%}
+{% set card_title = p.meta.title if p.meta.title else p.title %}
+<article class="reveal project-card relative rounded-2xl dark:bg-zinc-900/60 bg-white border dark:border-white/[0.08] border-zinc-200 overflow-hidden flex flex-col group">
+  <div class="relative overflow-hidden aspect-[16/10]">
+    {% if p.meta.image %}
+      <img src="{{ p.meta.image|url }}" alt="{{ card_title }}" class="w-full h-full object-cover object-left-top transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async">
+    {% endif %}
+    <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+  </div>
+  <div class="p-5 sm:p-6 flex flex-col flex-1">
+    <div class="flex items-center gap-4 mb-3">
+      {% if p.meta.logo %}
+        <img src="{{ p.meta.logo|url }}" alt="" class="w-14 h-14 -mt-12 relative rounded-2xl shadow-lg ring-4 dark:ring-zinc-900 ring-white shrink-0" loading="lazy" data-no-webp>
+      {% endif %}
+      <h3 class="text-xl font-medium tracking-tight dark:text-white text-zinc-900">
+        <a href="{{ p.url|url }}" class="after:absolute after:inset-0 group-hover:text-orange-500 transition-colors">{{ card_title }}</a>
+      </h3>
+    </div>
+    {% if p.meta.summary %}
+    <p class="dark:text-zinc-400 text-zinc-500 text-sm leading-relaxed mb-5 font-light flex-1">{{ p.meta.summary }}</p>
+    {% endif %}
+    <div class="flex flex-wrap items-center gap-2 mt-auto">
+      {% if p.meta.website %}
+        <a href="{{ p.meta.website }}" class="relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold bg-orange-500 text-white shadow-md shadow-orange-500/25 hover:bg-orange-600 transition-colors">
+          <i data-lucide="globe" class="w-4 h-4"></i> {{ tt.website }} <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </a>
+      {% endif %}
+      {% if p.meta.repo %}
+        <a href="{{ p.meta.repo }}" class="relative z-10 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium border dark:border-white/10 border-zinc-200 dark:text-zinc-300 text-zinc-600 hover:border-orange-500 hover:text-orange-500 transition-colors">
+          <i data-lucide="code" class="w-4 h-4"></i> {{ tt.source_code }}
+        </a>
+      {% endif %}
+      <span class="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-orange-500 group-hover:text-orange-400 transition-colors">
+        {{ tt.view_details }} <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+      </span>
+    </div>
+  </div>
+</article>
+{%- endmacro %}
+
 {% macro flatten_pages(items) -%}
   {%- for it in items -%}
     {%- if it.is_page and not it.meta.overview -%}{% if it.meta.featured %}{{ render_project_card(it, true) }}{% endif %}{% if not it.meta.featured %}{{ render_project_card(it, false) }}{% endif %}
@@ -86,6 +127,11 @@
 {% set is_home = page.is_homepage or _src in ('index.md', 'index.ro.md', 'index.en.md') %}
 {% set is_projects_landing = _src in ('projects/index.md', 'projects/index.en.md') %}
 {% set is_courses_landing = _src in ('courses/index.md', 'courses/index.en.md') %}
+{% set is_software_landing = _src in ('soft/index.md', 'soft/index.en.md') %}
+{% set software_section = namespace(node=none) %}
+{% for nav_item in nav %}
+  {% if nav_item.title in ('Software', 'Soft') %}{% set software_section.node = nav_item %}{% endif %}
+{% endfor %}
 {% block content %}
 {% if is_home %}
   <main>
@@ -531,6 +577,47 @@
       </div>
 
       <!-- Markdown intro content (How to choose, Why these courses, Hardware projects) -->
+      {% if page.content %}
+      <div class="reveal max-w-3xl prose dark:prose-invert prose-zinc mt-8 border-t dark:border-white/[0.08] border-zinc-200 pt-10">
+        {{ page.content }}
+      </div>
+      {% endif %}
+    </div>
+  </main>
+
+{% elif is_software_landing %}
+  <!-- ==================== SOFTWARE LANDING ==================== -->
+  <main class="pt-28 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-8 text-xs flex flex-wrap items-center gap-1.5 dark:text-zinc-500 text-zinc-400 font-medium">
+        <a href="{{ nav.homepage.url|url }}" class="hover:text-orange-500 transition-colors flex items-center gap-1">
+          <i data-lucide="home" class="w-3.5 h-3.5"></i> {{ tt.breadcrumb_home }}
+        </a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 dark:text-zinc-700 text-zinc-300"></i>
+        <span class="dark:text-white text-zinc-900 font-semibold">{{ tt.label_software }}</span>
+      </nav>
+
+      <div class="reveal max-w-2xl mb-12">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center">
+            <i data-lucide="monitor" class="w-4 h-4 text-orange-500"></i>
+          </div>
+          <span class="text-xs font-semibold uppercase tracking-[0.15em] text-orange-500">{{ tt.label_software }}</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight mb-4 dark:text-white text-zinc-900">{{ page.meta.title or page.title }}</h1>
+        {% if page.meta.summary %}
+        <p class="dark:text-zinc-400 text-zinc-500 text-base leading-relaxed font-light">{{ page.meta.summary }}</p>
+        {% endif %}
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        {% if software_section.node %}{% for it in software_section.node.children %}
+          {% if it.is_page and not it.meta.overview %}{{ render_software_card(it) }}{% endif %}
+        {% endfor %}{% endif %}
+      </div>
+
       {% if page.content %}
       <div class="reveal max-w-3xl prose dark:prose-invert prose-zinc mt-8 border-t dark:border-white/[0.08] border-zinc-200 pt-10">
         {{ page.content }}

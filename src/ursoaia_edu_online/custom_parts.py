@@ -1,7 +1,7 @@
 """Piese desenate local, pentru componente din kit pe care @wokwi/elements nu le are.
 
-`wokwi-74hc595` și `wokwi-relay-module` sunt piese native pe wokwi.com (dar nu în
-biblioteca @wokwi/elements); le desenăm aici cu aceleași nume de pini, ca
+`wokwi-74hc595`, `wokwi-relay-module` și `board-ssd1306` sunt piese native pe wokwi.com
+(dar nu în biblioteca @wokwi/elements); le desenăm aici cu aceleași nume de pini, ca
 diagram.json să rămână compatibil. Tipurile `ursoaia-*` există doar pe site.
 
 Fiecare piesă întoarce același format ca `wiring_render.js`:
@@ -210,7 +210,28 @@ def npn_to92(attrs: dict) -> dict:
     return _part(w, h, "".join(body), pins)
 
 
+def oled_ssd1306_i2c(attrs: dict) -> dict:
+    """Modul OLED 0.96" 128x64 I2C cu 4 pini (GND VCC SCL SDA), ca board-ssd1306 de pe wokwi.com."""
+    w, h = 102.0, 102.0
+    body = [f'<rect x="0" y="0" width="{w:g}" height="{h:g}" rx="4" fill="#1c4f9c"/>',
+            '<rect x="6" y="24" width="90" height="64" rx="1.5" fill="#0d0d0d" stroke="#3a3a3a"/>',
+            '<rect x="11" y="29" width="80" height="12" fill="#1a1a14"/>',
+            _text(51, 37.5, "SSD1306", 6, "#f2c94c"),
+            _text(51, 62, "128x64", 7, "#5ccfe6"), _text(51, 72, "I2C OLED", 5, "#5ccfe6")]
+    for cx, cy in [(6, 6), (96, 6), (6, 96), (96, 96)]:
+        body.append(f'<circle cx="{cx}" cy="{cy}" r="3.2" fill="#ffffff" stroke="#c9a227" stroke-width="1.4"/>')
+    pins = {}
+    xs = [w / 2 - 1.5 * PITCH + i * PITCH for i in range(4)]
+    for x, name in zip(xs, ["GND", "VCC", "SCL", "SDA"]):
+        body.append(f'<circle cx="{x:g}" cy="5" r="2.6" fill="#c9a227"/>')
+        body.append(f'<line x1="{x:g}" y1="0" x2="{x:g}" y2="5" stroke="#c9a227" stroke-width="2"/>')
+        body.append(_text(x, 15, name, 3.6))
+        pins[name] = (x, 0)
+    return _part(w, h, "".join(body), pins)
+
+
 CUSTOM_PARTS: dict[str, Callable[[dict], dict]] = {
+    "board-ssd1306": oled_ssd1306_i2c,
     "ursoaia-npn": npn_to92,
     "wokwi-74hc595": shift_register,
     "wokwi-relay-module": relay_module,

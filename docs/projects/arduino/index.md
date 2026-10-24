@@ -21,6 +21,16 @@ Construiește un cub cu 27 de LED-uri controlate prin **multiplexare pe straturi
 
 ---
 
+### [Display OLED 128x64 I2C](oled_display.md)
+
+Afișează text și grafică pe un display OLED SSD1306 — întâi **fără nicio bibliotecă**, trimițând singur comenzile prin I2C, apoi cu **Adafruit SSD1306** (text în mai multe mărimi, forme, animații).
+
+- **Componente:** Arduino Nano sau Uno, display OLED 0.96" 128x64 I2C
+- **Concepte:** I2C, pagini de memorie, font bitmap, `PROGMEM`, buffer de ecran
+- **Dificultate:** începător-mediu
+
+---
+
 ### [Kit-uri de pornire Arduino](starter_kit/kits.md)
 
 Cele **25 de proiecte** din Super Starter Kit pentru Arduino UNO (CH340) — de la „Hello World" până la motoare pas cu pas controlate prin telecomandă. Fiecare proiect are descriere, schemă și cod gata de încărcat.

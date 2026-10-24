@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "author": "ursoaia-edu.online",
+  "editor": "wokwi",
+  "parts": [
+    {"type": "wokwi-arduino-nano", "id": "nano", "top": 0, "left": 0, "attrs": {}},
+    {"type": "board-ssd1306", "id": "oled", "top": 125, "left": 64.7, "attrs": {"i2cAddress": "0x3c"}}
+  ],
+  "connections": [
+    ["nano:A4", "oled:SDA", "blue", ["v22.6", "h43.2"]],
+    ["nano:A5", "oled:SCL", "purple", ["v12.6", "h24"]],
+    ["nano:5V", "oled:VCC", "red", ["v17.6", "h-14.4"]],
+    ["nano:GND.1", "oled:GND", "black", ["v27.6", "h-43.2"]]
+  ],
+  "dependencies": {}
+}

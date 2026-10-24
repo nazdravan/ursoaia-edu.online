@@ -21,6 +21,16 @@ Build a 27-LED cube driven via **layer multiplexing** with POV animations. 9 col
 
 ---
 
+### [128x64 I2C OLED Display](oled_display.md)
+
+Show text and graphics on an SSD1306 OLED display — first **with no library at all**, sending the I2C commands yourself, then with **Adafruit SSD1306** (text in several sizes, shapes, animations).
+
+- **Components:** Arduino Nano or Uno, 0.96" 128x64 I2C OLED display
+- **Concepts:** I2C, memory pages, bitmap font, `PROGMEM`, screen buffer
+- **Difficulty:** beginner-intermediate
+
+---
+
 ### [Arduino Starter Kits](starter_kit/kits.md)
 
 All **25 projects** from the Super Starter Kit for Arduino UNO (CH340) — from "Hello World" up to stepper motors controlled by IR remote. Each project comes with description, wiring diagram, and ready-to-flash code.
