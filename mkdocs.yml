@@ -58,6 +58,7 @@ plugins:
             LoPy: LoPy
             "LoRaWAN Node": Nod LoRaWAN
             "Raspberry Pi": Raspberry Pi
+            Software: Soft
             Overview: Prezentare generală
         - locale: en
           name: English
@@ -208,3 +209,7 @@ nav:
           - LoRaWAN Node: projects/lopy/lorawan_node.md
       - Raspberry Pi:
           - Overview: projects/raspberry_pi/index.md
+  - Software:
+      - Overview: soft/index.md
+      - Cangurul: soft/cangurul.md
+      - Furnica: soft/furnica.md
